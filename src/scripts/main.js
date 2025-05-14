@@ -1,34 +1,43 @@
-// Mobile menu functionality
+// Mobile Navigation Functionality
 document.addEventListener("DOMContentLoaded", function () {
-  const mobileMenuButton = document.querySelector(".md\\:hidden");
-  const navLinks = document.querySelector(".hidden.md\\:flex");
+  const mobileMenuButton = document.querySelector(".mobile-menu-button");
+  const mobileMenu = document.querySelector(".mobile-menu");
+  const overlay = document.querySelector(".mobile-menu-overlay");
 
-  if (mobileMenuButton && navLinks) {
-    mobileMenuButton.addEventListener("click", () => {
-      navLinks.classList.toggle("hidden");
-      navLinks.classList.toggle("flex");
-      navLinks.classList.toggle("flex-col");
-      navLinks.classList.toggle("absolute");
-      navLinks.classList.toggle("top-16");
-      navLinks.classList.toggle("left-0");
-      navLinks.classList.toggle("right-0");
-      navLinks.classList.toggle("bg-[#184085]");
-      navLinks.classList.toggle("p-4");
-      navLinks.classList.toggle("space-y-4");
-    });
+  // Toggle mobile menu
+  function toggleMobileMenu() {
+    mobileMenu.classList.toggle("translate-x-0");
+    mobileMenu.classList.toggle("-translate-x-full");
+    overlay.classList.toggle("hidden");
+    document.body.classList.toggle("overflow-hidden");
   }
 
-  // Add smooth scrolling for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute("href"));
-      if (target) {
-        target.scrollIntoView({
-          behavior: "smooth",
-        });
-      }
-    });
+  // Close mobile menu when clicking overlay
+  function closeMobileMenu() {
+    mobileMenu.classList.remove("translate-x-0");
+    mobileMenu.classList.add("-translate-x-full");
+    overlay.classList.add("hidden");
+    document.body.classList.remove("overflow-hidden");
+  }
+
+  // Event listeners
+  mobileMenuButton.addEventListener("click", toggleMobileMenu);
+  overlay.addEventListener("click", closeMobileMenu);
+
+  // Close mobile menu when clicking a link
+  const mobileMenuLinks = mobileMenu.querySelectorAll("a");
+  mobileMenuLinks.forEach((link) => {
+    link.addEventListener("click", closeMobileMenu);
+  });
+
+  // Close mobile menu on window resize if open
+  window.addEventListener("resize", function () {
+    if (
+      window.innerWidth >= 768 &&
+      !mobileMenu.classList.contains("-translate-x-full")
+    ) {
+      closeMobileMenu();
+    }
   });
 });
 

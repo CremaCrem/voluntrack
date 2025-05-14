@@ -13,7 +13,9 @@
   </head>
   <body class="bg-gray-50 font-['Poppins'] min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30">
+    <nav
+      class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30 fixed w-full top-0 z-50"
+    >
       <div class="container mx-auto px-4 py-3">
         <div class="flex justify-between items-center">
           <div class="flex items-center space-x-3">
@@ -24,6 +26,7 @@
             />
             <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
           </div>
+          <!-- Desktop Navigation -->
           <div class="hidden md:flex space-x-6">
             <a
               href="../../index.html"
@@ -67,7 +70,9 @@
             >
           </div>
           <!-- Mobile menu button -->
-          <button class="md:hidden text-[#184085] focus:outline-none">
+          <button
+            class="md:hidden mobile-menu-button text-[#184085] focus:outline-none"
+          >
             <svg
               class="w-6 h-6"
               fill="none"
@@ -86,305 +91,371 @@
       </div>
     </nav>
 
-    <!-- Header -->
-    <header
-      class="bg-gradient-to-r from-[#184085] to-[#1a4a9c] text-white py-12"
+    <!-- Mobile Menu Overlay -->
+    <div
+      class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-50 z-40 hidden"
+    ></div>
+
+    <!-- Mobile Menu -->
+    <div
+      class="mobile-menu fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50"
     >
-      <div class="container mx-auto px-4">
-        <h1 class="text-4xl font-bangers text-center mb-4">
-          Suggested Improvements
-        </h1>
-        <p class="text-center text-lg max-w-3xl mx-auto">
-          Based on user feedback and testing results, here are the recommended
-          improvements for VolunTrack.
-        </p>
-      </div>
-    </header>
-
-    <!-- Feedback Summary -->
-    <section class="py-12 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-          <h2 class="text-2xl font-bangers text-[#184085] mb-8">
-            Key Feedback Points
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-gray-50 rounded-lg p-6 shadow-md">
-              <h3 class="text-xl font-semibold text-[#184085] mb-4">
-                Interface Issues
-              </h3>
-              <ul class="space-y-3 text-gray-700">
-                <li class="flex items-start">
-                  <svg
-                    class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                    ></path>
-                  </svg>
-                  <span>Blurry map resolution affecting usability</span>
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                    ></path>
-                  </svg>
-                  <span>Small navigation bar and icons</span>
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                    ></path>
-                  </svg>
-                  <span>Limited information display</span>
-                </li>
-              </ul>
-            </div>
-            <div class="bg-gray-50 rounded-lg p-6 shadow-md">
-              <h3 class="text-xl font-semibold text-[#184085] mb-4">
-                User Experience
-              </h3>
-              <ul class="space-y-3 text-gray-700">
-                <li class="flex items-start">
-                  <svg
-                    class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                    ></path>
-                  </svg>
-                  <span>Need for better onboarding experience</span>
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                    ></path>
-                  </svg>
-                  <span>Unintuitive button placement</span>
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                    ></path>
-                  </svg>
-                  <span>Complex approval interface</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+      <div class="p-4 border-b border-[#f2a33c]/30">
+        <div class="flex items-center space-x-3">
+          <img
+            src="../../public/assets/images/logo.png"
+            alt="VolunTrack Logo"
+            class="h-10 w-10 object-contain"
+          />
+          <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
         </div>
       </div>
-    </section>
+      <div class="p-4 space-y-4">
+        <a
+          href="../../index.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Home</a
+        >
+        <a
+          href="participants.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Participants</a
+        >
+        <a
+          href="tasks.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Tasks</a
+        >
+        <a
+          href="results.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Results</a
+        >
+        <a
+          href="decide.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >DECIDE</a
+        >
+        <a
+          href="videos.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Videos</a
+        >
+        <a
+          href="improvements.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Improvements</a
+        >
+        <a
+          href="poster.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Poster</a
+        >
+      </div>
+    </div>
 
-    <!-- Recommended Improvements -->
-    <section class="py-12 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-          <h2 class="text-2xl font-['Intro_Rust'] text-[#184085] mb-8">
-            Recommended Improvements
-          </h2>
-          <div class="space-y-6">
-            <!-- Map Improvements -->
-            <div
-              class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform"
-            >
-              <h3 class="text-xl font-semibold text-[#184085] mb-4">
-                Map Enhancement
-              </h3>
-              <div class="space-y-3 text-gray-700">
-                <p>
-                  Improve map resolution and add clear markers with tooltips:
-                </p>
-                <ul class="list-disc list-inside space-y-2">
-                  <li>Implement high-resolution map tiles</li>
-                  <li>Add clear, visible markers for volunteer locations</li>
-                  <li>Include informative tooltips with location details</li>
-                  <li>Optimize map loading performance</li>
+    <!-- Add padding to body to account for fixed navigation -->
+    <div class="pt-16">
+      <!-- Header -->
+      <header
+        class="bg-gradient-to-r from-[#184085] to-[#1a4a9c] text-white py-12"
+      >
+        <div class="container mx-auto px-4">
+          <h1 class="text-4xl font-bangers text-center mb-4">
+            Suggested Improvements
+          </h1>
+          <p class="text-center text-lg max-w-3xl mx-auto">
+            Based on user feedback and testing results, here are the recommended
+            improvements for VolunTrack.
+          </p>
+        </div>
+      </header>
+
+      <!-- Feedback Summary -->
+      <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bangers text-[#184085] mb-8">
+              Key Feedback Points
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="bg-gray-50 rounded-lg p-6 shadow-md">
+                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                  Interface Issues
+                </h3>
+                <ul class="space-y-3 text-gray-700">
+                  <li class="flex items-start">
+                    <svg
+                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                      ></path>
+                    </svg>
+                    <span>Blurry map resolution affecting usability</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg
+                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                      ></path>
+                    </svg>
+                    <span>Small navigation bar and icons</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg
+                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                      ></path>
+                    </svg>
+                    <span>Limited information display</span>
+                  </li>
                 </ul>
               </div>
-            </div>
-
-            <!-- UI Improvements -->
-            <div
-              class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform"
-            >
-              <h3 class="text-xl font-semibold text-[#184085] mb-4">
-                Interface Updates
-              </h3>
-              <div class="space-y-3 text-gray-700">
-                <p>Enhance visual elements and navigation:</p>
-                <ul class="list-disc list-inside space-y-2">
-                  <li>Increase font size and improve contrast</li>
-                  <li>Enlarge navigation bar and icons</li>
-                  <li>Reposition buttons for better accessibility</li>
-                  <li>Add visual cues for interactive elements</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Approval Process -->
-            <div
-              class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform"
-            >
-              <h3 class="text-xl font-semibold text-[#184085] mb-4">
-                Streamlined Approval Process
-              </h3>
-              <div class="space-y-3 text-gray-700">
-                <p>Simplify the volunteer request approval interface:</p>
-                <ul class="list-disc list-inside space-y-2">
-                  <li>Implement a more intuitive approval workflow</li>
-                  <li>Add visual indicators for pending requests</li>
-                  <li>Include quick action buttons</li>
-                  <li>Provide clear feedback for actions taken</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Onboarding Experience -->
-            <div
-              class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform"
-            >
-              <h3 class="text-xl font-semibold text-[#184085] mb-4">
-                Enhanced Onboarding
-              </h3>
-              <div class="space-y-3 text-gray-700">
-                <p>Create a comprehensive tutorial experience:</p>
-                <ul class="list-disc list-inside space-y-2">
-                  <li>Develop interactive walkthroughs</li>
-                  <li>Add contextual help tooltips</li>
-                  <li>Include video tutorials</li>
-                  <li>Provide quick reference guides</li>
+              <div class="bg-gray-50 rounded-lg p-6 shadow-md">
+                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                  User Experience
+                </h3>
+                <ul class="space-y-3 text-gray-700">
+                  <li class="flex items-start">
+                    <svg
+                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                      ></path>
+                    </svg>
+                    <span>Need for better onboarding experience</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg
+                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                      ></path>
+                    </svg>
+                    <span>Unintuitive button placement</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg
+                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                      ></path>
+                    </svg>
+                    <span>Complex approval interface</span>
+                  </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Implementation Timeline -->
-    <section class="py-12 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-          <h2 class="text-2xl font-['Intro_Rust'] text-[#184085] mb-8">
-            Implementation Timeline
-          </h2>
-          <div class="bg-gray-50 rounded-lg p-6 shadow-md">
+      <!-- Recommended Improvements -->
+      <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-['Intro_Rust'] text-[#184085] mb-8">
+              Recommended Improvements
+            </h2>
             <div class="space-y-6">
-              <div class="flex items-start">
-                <div
-                  class="flex-shrink-0 w-12 h-12 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
-                >
-                  1
-                </div>
-                <div class="ml-4">
-                  <h3 class="text-lg font-semibold text-[#184085]">
-                    Phase 1: UI Updates
-                  </h3>
-                  <p class="text-gray-600 mt-1">
-                    Implement font size and contrast improvements, navigation
-                    bar updates
+              <!-- Map Improvements -->
+              <div
+                class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform"
+              >
+                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                  Map Enhancement
+                </h3>
+                <div class="space-y-3 text-gray-700">
+                  <p>
+                    Improve map resolution and add clear markers with tooltips:
                   </p>
+                  <ul class="list-disc list-inside space-y-2">
+                    <li>Implement high-resolution map tiles</li>
+                    <li>Add clear, visible markers for volunteer locations</li>
+                    <li>Include informative tooltips with location details</li>
+                    <li>Optimize map loading performance</li>
+                  </ul>
                 </div>
               </div>
-              <div class="flex items-start">
-                <div
-                  class="flex-shrink-0 w-12 h-12 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
-                >
-                  2
-                </div>
-                <div class="ml-4">
-                  <h3 class="text-lg font-semibold text-[#184085]">
-                    Phase 2: Map Enhancement
-                  </h3>
-                  <p class="text-gray-600 mt-1">
-                    Upgrade map resolution and implement new markers system
-                  </p>
-                </div>
-              </div>
-              <div class="flex items-start">
-                <div
-                  class="flex-shrink-0 w-12 h-12 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
-                >
-                  3
-                </div>
-                <div class="ml-4">
-                  <h3 class="text-lg font-semibold text-[#184085]">
-                    Phase 3: Process Improvements
-                  </h3>
-                  <p class="text-gray-600 mt-1">
-                    Streamline approval process and enhance user workflows
-                  </p>
+
+              <!-- UI Improvements -->
+              <div
+                class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform"
+              >
+                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                  Interface Updates
+                </h3>
+                <div class="space-y-3 text-gray-700">
+                  <p>Enhance visual elements and navigation:</p>
+                  <ul class="list-disc list-inside space-y-2">
+                    <li>Increase font size and improve contrast</li>
+                    <li>Enlarge navigation bar and icons</li>
+                    <li>Reposition buttons for better accessibility</li>
+                    <li>Add visual cues for interactive elements</li>
+                  </ul>
                 </div>
               </div>
-              <div class="flex items-start">
-                <div
-                  class="flex-shrink-0 w-12 h-12 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
-                >
-                  4
+
+              <!-- Approval Process -->
+              <div
+                class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform"
+              >
+                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                  Streamlined Approval Process
+                </h3>
+                <div class="space-y-3 text-gray-700">
+                  <p>Simplify the volunteer request approval interface:</p>
+                  <ul class="list-disc list-inside space-y-2">
+                    <li>Implement a more intuitive approval workflow</li>
+                    <li>Add visual indicators for pending requests</li>
+                    <li>Include quick action buttons</li>
+                    <li>Provide clear feedback for actions taken</li>
+                  </ul>
                 </div>
-                <div class="ml-4">
-                  <h3 class="text-lg font-semibold text-[#184085]">
-                    Phase 4: Onboarding
-                  </h3>
-                  <p class="text-gray-600 mt-1">
-                    Develop and implement comprehensive tutorial system
-                  </p>
+              </div>
+
+              <!-- Onboarding Experience -->
+              <div
+                class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform"
+              >
+                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                  Enhanced Onboarding
+                </h3>
+                <div class="space-y-3 text-gray-700">
+                  <p>Create a comprehensive tutorial experience:</p>
+                  <ul class="list-disc list-inside space-y-2">
+                    <li>Develop interactive walkthroughs</li>
+                    <li>Add contextual help tooltips</li>
+                    <li>Include video tutorials</li>
+                    <li>Provide quick reference guides</li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <!-- Implementation Timeline -->
+      <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-['Intro_Rust'] text-[#184085] mb-8">
+              Implementation Timeline
+            </h2>
+            <div class="bg-gray-50 rounded-lg p-6 shadow-md">
+              <div class="space-y-6">
+                <div class="flex items-start">
+                  <div
+                    class="flex-shrink-0 w-12 h-12 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
+                  >
+                    1
+                  </div>
+                  <div class="ml-4">
+                    <h3 class="text-lg font-semibold text-[#184085]">
+                      Phase 1: UI Updates
+                    </h3>
+                    <p class="text-gray-600 mt-1">
+                      Implement font size and contrast improvements, navigation
+                      bar updates
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="flex-shrink-0 w-12 h-12 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
+                  >
+                    2
+                  </div>
+                  <div class="ml-4">
+                    <h3 class="text-lg font-semibold text-[#184085]">
+                      Phase 2: Map Enhancement
+                    </h3>
+                    <p class="text-gray-600 mt-1">
+                      Upgrade map resolution and implement new markers system
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="flex-shrink-0 w-12 h-12 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
+                  >
+                    3
+                  </div>
+                  <div class="ml-4">
+                    <h3 class="text-lg font-semibold text-[#184085]">
+                      Phase 3: Process Improvements
+                    </h3>
+                    <p class="text-gray-600 mt-1">
+                      Streamline approval process and enhance user workflows
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="flex-shrink-0 w-12 h-12 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
+                  >
+                    4
+                  </div>
+                  <div class="ml-4">
+                    <h3 class="text-lg font-semibold text-[#184085]">
+                      Phase 4: Onboarding
+                    </h3>
+                    <p class="text-gray-600 mt-1">
+                      Develop and implement comprehensive tutorial system
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
 
     <main class="flex-1"></main>
     <footer class="bg-[#184085] text-white py-8 w-full">

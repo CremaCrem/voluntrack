@@ -14,7 +14,7 @@
   </head>
   <body class="bg-gray-50 font-['Poppins'] min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30">
+    <nav class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30 fixed w-full top-0 z-50">
       <div class="container mx-auto px-4 py-3">
         <div class="flex justify-between items-center">
           <div class="flex items-center space-x-3">
@@ -25,6 +25,7 @@
             />
             <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
           </div>
+          <!-- Desktop Navigation -->
           <div class="hidden md:flex space-x-6">
             <a
               href="../../index.html"
@@ -68,7 +69,7 @@
             >
           </div>
           <!-- Mobile menu button -->
-          <button class="md:hidden text-[#184085] focus:outline-none">
+          <button class="md:hidden mobile-menu-button text-[#184085] focus:outline-none">
             <svg
               class="w-6 h-6"
               fill="none"
@@ -87,6 +88,203 @@
       </div>
     </nav>
 
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
+      <div class="p-4 border-b border-[#f2a33c]/30">
+        <div class="flex items-center space-x-3">
+          <img
+            src="../../public/assets/images/logo.png"
+            alt="VolunTrack Logo"
+            class="h-10 w-10 object-contain"
+          />
+          <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+        </div>
+      </div>
+      <div class="p-4 space-y-4">
+        <a
+          href="../../index.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Home</a
+        >
+        <a
+          href="participants.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Participants</a
+        >
+        <a
+          href="tasks.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Tasks</a
+        >
+        <a
+          href="results.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Results</a
+        >
+        <a
+          href="decide.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >DECIDE</a
+        >
+        <a
+          href="videos.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Videos</a
+        >
+        <a
+          href="improvements.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Improvements</a
+        >
+        <a
+          href="poster.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Poster</a
+        >
+      </div>
+    </div>
+
+    <!-- Add padding to body to account for fixed navigation -->
+    <div class="pt-16">
+      <!-- Header -->
+      <header
+        class="bg-gradient-to-r from-[#184085] to-[#1a4a9c] text-white py-12"
+      >
+        <div class="container mx-auto px-4">
+          <h1 class="text-4xl font-bangers text-center mb-4">Testing Results</h1>
+          <p class="text-center text-lg max-w-3xl mx-auto">
+            Comprehensive analysis of the usability testing outcomes and
+            participant feedback.
+          </p>
+        </div>
+      </header>
+
+      <!-- Usability Test Summary -->
+      <section class="py-8 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-bangers text-[#184085] mb-4">
+              Summarize Usability Test
+            </h2>
+            <p class="text-gray-700 text-base">
+              The usability test for VolunTrack was conducted with five college
+              student participants from various academic programs. Overall, the
+              results showed that the system is intuitive, accessible, and easy to
+              use. The average task completion time was 35.4 seconds, indicating
+              quick interactions and efficient navigation. The satisfaction rating
+              averaged 4.3 out of 5, reflecting a generally positive user
+              experience. Participants perceived tasks as low in complexity, with
+              an average complexity rating of 1.6 out of 5.<br /><br />
+              While most participants praised the design, layout, and ease of use,
+              a few suggested minor improvements such as increasing icon size,
+              enhancing navigation clarity, and adding more informative content.
+              No critical usability issues were found, and all users completed the
+              tasks without assistance, demonstrating strong learnability.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Summary Section -->
+      <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bangers text-[#184085] mb-8">
+              Key Findings
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div class="bg-gray-50 rounded-lg p-6 text-center">
+                <h3 class="text-xl font-semibold text-[#184085] mb-2">
+                  Average Task Completion Time
+                </h3>
+                <p class="text-3xl font-bold text-[#f2a33c]">35.4s</p>
+                <p class="text-gray-600 mt-2">Target: 30s</p>
+              </div>
+              <div class="bg-gray-50 rounded-lg p-6 text-center">
+                <h3 class="text-xl font-semibold text-[#184085] mb-2">
+                  User Satisfaction Rate
+                </h3>
+                <p class="text-3xl font-bold text-[#f2a33c]">4.27/5</p>
+                <p class="text-gray-600 mt-2">Target: 4.5/5</p>
+              </div>
+              <div class="bg-gray-50 rounded-lg p-6 text-center">
+                <h3 class="text-xl font-semibold text-[#184085] mb-2">
+                  Complexity Level
+                </h3>
+                <p class="text-3xl font-bold text-[#f2a33c]">1.6/5</p>
+                <p class="text-gray-600 mt-2">Target: 2/5</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Detailed Results as Bar Graphs -->
+      <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="max-w-6xl mx-auto space-y-12">
+            <!-- Task 1 Satisfaction & Complexity -->
+            <div>
+              <h3 class="text-xl font-bangers text-[#184085] mb-2">
+                Task 1: Satisfaction Rate & Level of Complexity
+              </h3>
+              <canvas id="task1SatisfactionComplexity"></canvas>
+            </div>
+            <!-- Task 2 Satisfaction & Complexity -->
+            <div>
+              <h3 class="text-xl font-bangers text-[#184085] mb-2">
+                Task 2: Satisfaction Rate & Level of Complexity
+              </h3>
+              <canvas id="task2SatisfactionComplexity"></canvas>
+            </div>
+            <!-- Task 3 Satisfaction & Complexity -->
+            <div>
+              <h3 class="text-xl font-bangers text-[#184085] mb-2">
+                Task 3: Satisfaction Rate & Level of Complexity
+              </h3>
+              <canvas id="task3SatisfactionComplexity"></canvas>
+            </div>
+            <!-- Task 1 Time -->
+            <div>
+              <h3 class="text-xl font-bangers text-[#184085] mb-2">
+                Task 1: Time to Use (Seconds)
+              </h3>
+              <canvas id="task1Time"></canvas>
+            </div>
+            <!-- Task 2 Time -->
+            <div>
+              <h3 class="text-xl font-bangers text-[#184085] mb-2">
+                Task 2: Time to Use (Seconds)
+              </h3>
+              <canvas id="task2Time"></canvas>
+            </div>
+            <!-- Task 3 Time -->
+            <div>
+              <h3 class="text-xl font-bangers text-[#184085] mb-2">
+                Task 3: Time to Use (Seconds)
+              </h3>
+              <canvas id="task3Time"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Canva Embed Section -->
+      <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bangers text-[#184085] mb-8">
+              Additional Visualizations
+            </h2>
+            <div class="bg-white rounded-lg p-6 shadow-lg">
+              <p class="text-gray-600 mb-4">
+                For more detailed visualizations and analysis, please visit our
+                Canva presentation:
+              </p>
+              <a
     <!-- Header -->
     <header
       class="bg-gradient-to-r from-[#184085] to-[#1a4a9c] text-white py-12"

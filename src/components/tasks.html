@@ -13,7 +13,9 @@
   </head>
   <body class="bg-gray-50 font-['Poppins'] min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30">
+    <nav
+      class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30 fixed w-full top-0 z-50"
+    >
       <div class="container mx-auto px-4 py-3">
         <div class="flex justify-between items-center">
           <div class="flex items-center space-x-3">
@@ -24,6 +26,7 @@
             />
             <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
           </div>
+          <!-- Desktop Navigation -->
           <div class="hidden md:flex space-x-6">
             <a
               href="../../index.html"
@@ -67,7 +70,9 @@
             >
           </div>
           <!-- Mobile menu button -->
-          <button class="md:hidden text-[#184085] focus:outline-none">
+          <button
+            class="md:hidden mobile-menu-button text-[#184085] focus:outline-none"
+          >
             <svg
               class="w-6 h-6"
               fill="none"
@@ -86,66 +91,132 @@
       </div>
     </nav>
 
-    <!-- Header -->
-    <header
-      class="bg-gradient-to-r from-[#184085] to-[#1a4a9c] text-white py-12"
-    >
-      <div class="container mx-auto px-4">
-        <h1 class="text-4xl font-bangers text-center mb-4">Testing Tasks</h1>
-        <p class="text-center text-lg max-w-3xl mx-auto">
-          Explore the three key tasks that participants performed during the
-          usability testing sessions.
-        </p>
-      </div>
-    </header>
+    <!-- Mobile Menu Overlay -->
+    <div
+      class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-50 z-40 hidden"
+    ></div>
 
-    <!-- Tasks Section -->
-    <section class="py-12 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto space-y-8">
-          <!-- Task 1 -->
-          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div class="p-6">
-              <h2 class="text-2xl font-bangers text-[#184085] mb-4">
-                Task 1: Join a Volunteer Campaign
-              </h2>
-              <ol class="list-decimal list-inside space-y-2 text-gray-700">
-                <li>Log in as User</li>
-                <li>Navigate to the "Contribute" page</li>
-                <li>Join a volunteer opportunity</li>
-              </ol>
+    <!-- Mobile Menu -->
+    <div
+      class="mobile-menu fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50"
+    >
+      <div class="p-4 border-b border-[#f2a33c]/30">
+        <div class="flex items-center space-x-3">
+          <img
+            src="../../public/assets/images/logo.png"
+            alt="VolunTrack Logo"
+            class="h-10 w-10 object-contain"
+          />
+          <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+        </div>
+      </div>
+      <div class="p-4 space-y-4">
+        <a
+          href="../../index.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Home</a
+        >
+        <a
+          href="participants.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Participants</a
+        >
+        <a
+          href="tasks.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Tasks</a
+        >
+        <a
+          href="results.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Results</a
+        >
+        <a
+          href="decide.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >DECIDE</a
+        >
+        <a
+          href="videos.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Videos</a
+        >
+        <a
+          href="improvements.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Improvements</a
+        >
+        <a
+          href="poster.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Poster</a
+        >
+      </div>
+    </div>
+
+    <!-- Add padding to body to account for fixed navigation -->
+    <div class="pt-16">
+      <!-- Header -->
+      <header
+        class="bg-gradient-to-r from-[#184085] to-[#1a4a9c] text-white py-12"
+      >
+        <div class="container mx-auto px-4">
+          <h1 class="text-4xl font-bangers text-center mb-4">Testing Tasks</h1>
+          <p class="text-center text-lg max-w-3xl mx-auto">
+            Explore the three key tasks that participants performed during the
+            usability testing sessions.
+          </p>
+        </div>
+      </header>
+
+      <!-- Tasks Section -->
+      <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto space-y-8">
+            <!-- Task 1 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div class="p-6">
+                <h2 class="text-2xl font-bangers text-[#184085] mb-4">
+                  Task 1: Join a Volunteer Campaign
+                </h2>
+                <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                  <li>Log in as User</li>
+                  <li>Navigate to the "Contribute" page</li>
+                  <li>Join a volunteer opportunity</li>
+                </ol>
+              </div>
             </div>
-          </div>
-          <!-- Task 2 -->
-          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div class="p-6">
-              <h2 class="text-2xl font-bangers text-[#184085] mb-4">
-                Task 2: Approve or Reject Requests
-              </h2>
-              <ol class="list-decimal list-inside space-y-2 text-gray-700">
-                <li>Log in as Charity</li>
-                <li>Go to the dashboard</li>
-                <li>Select a pending name and approve/reject</li>
-              </ol>
+            <!-- Task 2 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div class="p-6">
+                <h2 class="text-2xl font-bangers text-[#184085] mb-4">
+                  Task 2: Approve or Reject Requests
+                </h2>
+                <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                  <li>Log in as Charity</li>
+                  <li>Go to the dashboard</li>
+                  <li>Select a pending name and approve/reject</li>
+                </ol>
+              </div>
             </div>
-          </div>
-          <!-- Task 3 -->
-          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div class="p-6">
-              <h2 class="text-2xl font-bangers text-[#184085] mb-4">
-                Task 3: Create a New Campaign
-              </h2>
-              <ol class="list-decimal list-inside space-y-2 text-gray-700">
-                <li>Log in as Charity</li>
-                <li>Go to "Contribute"</li>
-                <li>Click "Add Request"</li>
-                <li>Fill out the form and post the request</li>
-              </ol>
+            <!-- Task 3 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div class="p-6">
+                <h2 class="text-2xl font-bangers text-[#184085] mb-4">
+                  Task 3: Create a New Campaign
+                </h2>
+                <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                  <li>Log in as Charity</li>
+                  <li>Go to "Contribute"</li>
+                  <li>Click "Add Request"</li>
+                  <li>Fill out the form and post the request</li>
+                </ol>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <main class="flex-1"></main>
     <footer class="bg-[#184085] text-white py-8 w-full">

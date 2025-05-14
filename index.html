@@ -36,7 +36,9 @@
       </svg>
     </div>
     <!-- Navigation -->
-    <nav class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30">
+    <nav
+      class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30 fixed w-full top-0 z-50"
+    >
       <div class="container mx-auto px-4 py-3">
         <div class="flex justify-between items-center">
           <div class="flex items-center space-x-3">
@@ -47,6 +49,7 @@
             />
             <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
           </div>
+          <!-- Desktop Navigation -->
           <div class="hidden md:flex space-x-6">
             <a
               href="index.html"
@@ -90,7 +93,9 @@
             >
           </div>
           <!-- Mobile menu button -->
-          <button class="md:hidden text-[#184085] focus:outline-none">
+          <button
+            class="md:hidden mobile-menu-button text-[#184085] focus:outline-none"
+          >
             <svg
               class="w-6 h-6"
               fill="none"
@@ -109,161 +114,229 @@
       </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section
-      class="relative text-white py-20 overflow-hidden"
-      style="
-        background: linear-gradient(
-            120deg,
-            rgba(24, 64, 133, 0.85) 60%,
-            rgba(242, 163, 60, 0.7)
-          ),
-          url('public/assets/images/hero-bg.png') center/cover no-repeat;
-      "
+    <!-- Mobile Menu Overlay -->
+    <div
+      class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-50 z-40 hidden"
+    ></div>
+
+    <!-- Mobile Menu -->
+    <div
+      class="mobile-menu fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50"
     >
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto text-center">
-          <h1
-            class="text-4xl md:text-6xl font-bangers mb-6 animate-fade-in-down"
-          >
-            VolunTrack Usability Testing
-          </h1>
-          <p class="text-xl mb-8 animate-fade-in-up delay-200">
-            Discover how we evaluated and improved the user experience of
-            VolunTrack through comprehensive usability testing.
-          </p>
-          <a
-            href="src/components/results.html"
-            class="inline-block bg-[#f2a33c] text-[#184085] font-semibold px-8 py-3 rounded-lg hover:bg-[#e6952e] transition-colors shadow-lg transform hover:scale-110 focus:scale-105 focus:ring-4 focus:ring-[#f2a33c]/50 animate-pulse"
-          >
-            View Results
-          </a>
+      <div class="p-4 border-b border-[#f2a33c]/30">
+        <div class="flex items-center space-x-3">
+          <img
+            src="public/assets/images/logo.png"
+            alt="VolunTrack Logo"
+            class="h-10 w-10 object-contain"
+          />
+          <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
         </div>
       </div>
-      <!-- All floating SVG shapes have been removed for a clean look. -->
-    </section>
-
-    <!-- Testing Team Section -->
-    <section class="py-16 bg-gradient-to-br from-[#f2a33c]/10 to-[#184085]/10">
-      <div class="container mx-auto px-4">
-        <h2
-          class="text-3xl font-bangers text-[#184085] text-center mb-12 tracking-wider drop-shadow"
+      <div class="p-4 space-y-4">
+        <a
+          href="index.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Home</a
         >
-          Meet Our Team
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <!-- Team Member 1 -->
-          <div
-            class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
-          >
-            <div
-              class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
+        <a
+          href="src/components/participants.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Participants</a
+        >
+        <a
+          href="src/components/tasks.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Tasks</a
+        >
+        <a
+          href="src/components/results.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Results</a
+        >
+        <a
+          href="src/components/decide.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >DECIDE</a
+        >
+        <a
+          href="src/components/videos.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Videos</a
+        >
+        <a
+          href="src/components/improvements.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Improvements</a
+        >
+        <a
+          href="src/components/poster.html"
+          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          >Poster</a
+        >
+      </div>
+    </div>
+
+    <!-- Add padding to body to account for fixed navigation -->
+    <div class="pt-16">
+      <!-- Hero Section -->
+      <section
+        class="relative text-white py-20 overflow-hidden"
+        style="
+          background: linear-gradient(
+              120deg,
+              rgba(24, 64, 133, 0.85) 60%,
+              rgba(242, 163, 60, 0.7)
+            ),
+            url('public/assets/images/hero-bg.png') center/cover no-repeat;
+        "
+      >
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl mx-auto text-center">
+            <h1
+              class="text-4xl md:text-6xl font-bangers mb-6 animate-fade-in-down"
             >
-              <img
-                src="public/assets/images/benjie.jpg"
-                alt="Benjie A. Barrogo"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <h3
-              class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
+              VolunTrack Usability Testing
+            </h1>
+            <p class="text-xl mb-8 animate-fade-in-up delay-200">
+              Discover how we evaluated and improved the user experience of
+              VolunTrack through comprehensive usability testing.
+            </p>
+            <a
+              href="src/components/results.html"
+              class="inline-block bg-[#f2a33c] text-[#184085] font-semibold px-8 py-3 rounded-lg hover:bg-[#e6952e] transition-colors shadow-lg transform hover:scale-110 focus:scale-105 focus:ring-4 focus:ring-[#f2a33c]/50 animate-pulse"
             >
-              Benjie A. Barrogo
-            </h3>
-            <p class="text-[#f2a33c] font-semibold text-center">Marketer</p>
+              View Results
+            </a>
           </div>
-          <!-- Team Member 2 -->
-          <div
-            class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
+        </div>
+        <!-- All floating SVG shapes have been removed for a clean look. -->
+      </section>
+
+      <!-- Testing Team Section -->
+      <section
+        class="py-16 bg-gradient-to-br from-[#f2a33c]/10 to-[#184085]/10"
+      >
+        <div class="container mx-auto px-4">
+          <h2
+            class="text-3xl font-bangers text-[#184085] text-center mb-12 tracking-wider drop-shadow"
           >
+            Meet Our Team
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Team Member 1 -->
             <div
-              class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
+              class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
             >
-              <img
-                src="public/assets/images/pheobe.jpg"
-                alt="Phoebe Kaye R. Crispino"
-                class="w-full h-full object-cover"
-              />
+              <div
+                class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
+              >
+                <img
+                  src="public/assets/images/benjie.jpg"
+                  alt="Benjie A. Barrogo"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <h3
+                class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
+              >
+                Benjie A. Barrogo
+              </h3>
+              <p class="text-[#f2a33c] font-semibold text-center">Marketer</p>
             </div>
-            <h3
-              class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
+            <!-- Team Member 2 -->
+            <div
+              class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
             >
-              Phoebe Kaye R. Crispino
-            </h3>
-            <p class="text-[#f2a33c] font-semibold text-center">Marketer</p>
+              <div
+                class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
+              >
+                <img
+                  src="public/assets/images/pheobe.jpg"
+                  alt="Phoebe Kaye R. Crispino"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <h3
+                class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
+              >
+                Phoebe Kaye R. Crispino
+              </h3>
+              <p class="text-[#f2a33c] font-semibold text-center">Marketer</p>
+            </div>
+            <!-- Team Member 3 -->
+            <div
+              class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
+            >
+              <div
+                class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
+              >
+                <img
+                  src="public/assets/images/mark.jpg"
+                  alt="Mark Andrew R. Francisco"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <h3
+                class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
+              >
+                Mark Andrew R. Francisco
+              </h3>
+              <p class="text-[#f2a33c] font-semibold text-center">Developer</p>
+            </div>
+            <!-- Team Member 4 -->
+            <div
+              class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
+            >
+              <div
+                class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
+              >
+                <img
+                  src="public/assets/images/kyla.jpg"
+                  alt="Kyla Celine N. Romero"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <h3
+                class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
+              >
+                Kyla Celine N. Romero
+              </h3>
+              <p class="text-[#f2a33c] font-semibold text-center">
+                UI/UX Designer
+              </p>
+            </div>
           </div>
-          <!-- Team Member 3 -->
-          <div
-            class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
-          >
+        </div>
+      </section>
+
+      <!-- Fun Fact Carousel -->
+      <section class="py-12 bg-gradient-to-r from-[#f2a33c]/10 to-[#184085]/10">
+        <div class="container mx-auto px-4">
+          <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-2xl font-bangers text-[#184085] mb-6">
+              Did You Know?
+            </h2>
             <div
-              class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
-            >
-              <img
-                src="public/assets/images/mark.jpg"
-                alt="Mark Andrew R. Francisco"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <h3
-              class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
-            >
-              Mark Andrew R. Francisco
-            </h3>
-            <p class="text-[#f2a33c] font-semibold text-center">Developer</p>
+              id="fun-fact-carousel"
+              class="bg-white rounded-lg shadow-lg p-8 text-xl text-[#184085] min-h-[80px] flex items-center justify-center transition-all duration-500"
+            ></div>
           </div>
-          <!-- Team Member 4 -->
-          <div
-            class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
-          >
-            <div
-              class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
-            >
-              <img
-                src="public/assets/images/kyla.jpg"
-                alt="Kyla Celine N. Romero"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <h3
-              class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
-            >
-              Kyla Celine N. Romero
-            </h3>
-            <p class="text-[#f2a33c] font-semibold text-center">
-              UI/UX Designer
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-[#184085] text-white py-8">
+        <div class="container mx-auto px-4">
+          <div class="text-center">
+            <p class="mb-2">© 2024 VolunTrack Usability Testing Project</p>
+            <p class="text-sm text-gray-300">
+              A comprehensive evaluation of user experience and interface design
             </p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Fun Fact Carousel -->
-    <section class="py-12 bg-gradient-to-r from-[#f2a33c]/10 to-[#184085]/10">
-      <div class="container mx-auto px-4">
-        <div class="max-w-2xl mx-auto text-center">
-          <h2 class="text-2xl font-bangers text-[#184085] mb-6">
-            Did You Know?
-          </h2>
-          <div
-            id="fun-fact-carousel"
-            class="bg-white rounded-lg shadow-lg p-8 text-xl text-[#184085] min-h-[80px] flex items-center justify-center transition-all duration-500"
-          ></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-[#184085] text-white py-8">
-      <div class="container mx-auto px-4">
-        <div class="text-center">
-          <p class="mb-2">© 2024 VolunTrack Usability Testing Project</p>
-          <p class="text-sm text-gray-300">
-            A comprehensive evaluation of user experience and interface design
-          </p>
-        </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
 
     <script src="src/scripts/main.js"></script>
     <script>
