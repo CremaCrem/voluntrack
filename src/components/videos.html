@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Videos - VolunTrack Usability Testing</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.cdnfonts.com/css/intro-rust" rel="stylesheet" />
+    <link href="../../public/output.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-50 font-['Poppins'] min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-3">
+            <img
+              src="../../public/assets/images/logo.png"
+              alt="VolunTrack Logo"
+              class="h-10 w-10 md:h-12 md:w-12 object-contain"
+            />
+            <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+          </div>
+          <div class="hidden md:flex space-x-6">
+            <a
+              href="../../index.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Home</a
+            >
+            <a
+              href="participants.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Participants</a
+            >
+            <a
+              href="tasks.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Tasks</a
+            >
+            <a
+              href="results.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Results</a
+            >
+            <a
+              href="decide.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >DECIDE</a
+            >
+            <a
+              href="videos.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Videos</a
+            >
+            <a
+              href="improvements.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Improvements</a
+            >
+            <a
+              href="poster.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Poster</a
+            >
+          </div>
+          <!-- Mobile menu button -->
+          <button class="md:hidden text-[#184085] focus:outline-none">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header
+      class="bg-gradient-to-r from-[#184085] to-[#1a4a9c] text-white py-12"
+    >
+      <div class="container mx-auto px-4">
+        <h1 class="text-4xl font-bangers text-center mb-4">Testing Videos</h1>
+        <p class="text-center text-lg max-w-3xl mx-auto">
+          Access the recorded usability testing sessions and consent
+          documentation.
+        </p>
+      </div>
+    </header>
+
+    <!-- Consent Process Section -->
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-2xl font-bangers text-[#184085] mb-8">
+            Consent Process
+          </h2>
+          <div class="bg-gray-50 rounded-lg p-6 shadow-md">
+            <p class="mb-4">
+              All participants were required to provide informed consent before
+              participating in the usability testing sessions. The consent
+              process included:
+            </p>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+              <li>Detailed explanation of the testing process</li>
+              <li>Information about video recording and data collection</li>
+              <li>Confidentiality agreements</li>
+              <li>Participant rights and withdrawal options</li>
+              <li>Signed consent forms</li>
+            </ul>
+            <div class="mt-6 p-4 bg-white rounded-lg border border-gray-200">
+              <h3 class="text-lg font-semibold text-[#184085] mb-2">
+                Consent Form Highlights
+              </h3>
+              <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li>
+                  Participants were informed about the purpose of the study
+                </li>
+                <li>Clear explanation of data usage and storage</li>
+                <li>Option to withdraw at any time</li>
+                <li>Confidentiality of personal information</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section class="py-12 bg-gray-50 min-h-[60vh]">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bangers text-[#184085] text-center mb-10">
+            Project Videos
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <!-- Prototype Video -->
+            <div
+              class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center"
+            >
+              <h3 class="text-xl font-bangers text-[#184085] mb-4">
+                Prototype Demo
+              </h3>
+              <video
+                controls
+                poster="../../public/assets/images/logo.png"
+                class="rounded-lg w-full max-w-xs mb-2"
+              >
+                <source
+                  src="../../public/assets/videos/prototype-demo.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+              <p class="text-gray-600 text-center text-sm">
+                A walkthrough of how to use the VolunTrack application.
+              </p>
+            </div>
+            <!-- Usability Testing Video -->
+            <div
+              class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center"
+            >
+              <h3 class="text-xl font-bangers text-[#184085] mb-4">
+                Usability Testing
+              </h3>
+              <video
+                controls
+                poster="../../public/assets/images/logo.png"
+                class="rounded-lg w-full max-w-xs mb-2"
+              >
+                <source
+                  src="../../public/assets/videos/usability-testing.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+              <p class="text-gray-600 text-center text-sm">
+                Watch the interviews and usability testing sessions with real
+                users.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="flex-1"></main>
+    <footer class="bg-[#184085] text-white py-8 w-full">
+      <div class="container mx-auto px-4">
+        <div class="text-center">
+          <p class="mb-2">© 2024 VolunTrack Usability Testing Project</p>
+          <p class="text-sm text-gray-300">
+            A comprehensive evaluation of user experience and interface design
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../src/scripts/main.js"></script>
+    <style>
+      .font-bangers {
+        font-family: "Bangers", cursive;
+      }
+    </style>
+  </body>
+</html>

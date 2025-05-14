@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tasks - VolunTrack Usability Testing</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.cdnfonts.com/css/intro-rust" rel="stylesheet" />
+    <link href="../../public/output.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-50 font-['Poppins'] min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-3">
+            <img
+              src="../../public/assets/images/logo.png"
+              alt="VolunTrack Logo"
+              class="h-10 w-10 md:h-12 md:w-12 object-contain"
+            />
+            <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+          </div>
+          <div class="hidden md:flex space-x-6">
+            <a
+              href="../../index.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Home</a
+            >
+            <a
+              href="participants.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Participants</a
+            >
+            <a
+              href="tasks.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Tasks</a
+            >
+            <a
+              href="results.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Results</a
+            >
+            <a
+              href="decide.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >DECIDE</a
+            >
+            <a
+              href="videos.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Videos</a
+            >
+            <a
+              href="improvements.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Improvements</a
+            >
+            <a
+              href="poster.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Poster</a
+            >
+          </div>
+          <!-- Mobile menu button -->
+          <button class="md:hidden text-[#184085] focus:outline-none">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header
+      class="bg-gradient-to-r from-[#184085] to-[#1a4a9c] text-white py-12"
+    >
+      <div class="container mx-auto px-4">
+        <h1 class="text-4xl font-bangers text-center mb-4">Testing Tasks</h1>
+        <p class="text-center text-lg max-w-3xl mx-auto">
+          Explore the three key tasks that participants performed during the
+          usability testing sessions.
+        </p>
+      </div>
+    </header>
+
+    <!-- Tasks Section -->
+    <section class="py-12 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto space-y-8">
+          <!-- Task 1 -->
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="p-6">
+              <h2 class="text-2xl font-bangers text-[#184085] mb-4">
+                Task 1: Join a Volunteer Campaign
+              </h2>
+              <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                <li>Log in as User</li>
+                <li>Navigate to the "Contribute" page</li>
+                <li>Join a volunteer opportunity</li>
+              </ol>
+            </div>
+          </div>
+          <!-- Task 2 -->
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="p-6">
+              <h2 class="text-2xl font-bangers text-[#184085] mb-4">
+                Task 2: Approve or Reject Requests
+              </h2>
+              <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                <li>Log in as Charity</li>
+                <li>Go to the dashboard</li>
+                <li>Select a pending name and approve/reject</li>
+              </ol>
+            </div>
+          </div>
+          <!-- Task 3 -->
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="p-6">
+              <h2 class="text-2xl font-bangers text-[#184085] mb-4">
+                Task 3: Create a New Campaign
+              </h2>
+              <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                <li>Log in as Charity</li>
+                <li>Go to "Contribute"</li>
+                <li>Click "Add Request"</li>
+                <li>Fill out the form and post the request</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="flex-1"></main>
+    <footer class="bg-[#184085] text-white py-8 w-full">
+      <div class="container mx-auto px-4">
+        <div class="text-center">
+          <p class="mb-2">© 2024 VolunTrack Usability Testing Project</p>
+          <p class="text-sm text-gray-300">
+            A comprehensive evaluation of user experience and interface design
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../src/scripts/main.js"></script>
+    <script>
+      function toggleTask(taskNumber) {
+        const content = document.getElementById(`task${taskNumber}-content`);
+        const icon = document.getElementById(`task${taskNumber}-icon`);
+
+        if (content.style.display === "none") {
+          content.style.display = "block";
+          icon.style.transform = "rotate(0deg)";
+        } else {
+          content.style.display = "none";
+          icon.style.transform = "rotate(-90deg)";
+        }
+      }
+
+      // Initialize all task contents as hidden
+      document.addEventListener("DOMContentLoaded", function () {
+        for (let i = 1; i <= 3; i++) {
+          const content = document.getElementById(`task${i}-content`);
+          const icon = document.getElementById(`task${i}-icon`);
+          content.style.display = "none";
+          icon.style.transform = "rotate(-90deg)";
+        }
+      });
+    </script>
+    <style>
+      .font-bangers {
+        font-family: "Bangers", cursive;
+      }
+    </style>
+  </body>
+</html>

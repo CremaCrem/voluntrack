@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VolunTrack Usability Testing</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.cdnfonts.com/css/intro-rust" rel="stylesheet" />
+    <link href="public/output.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="assets/images/logo.png" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body class="bg-gray-50 font-['Poppins']">
+    <!-- Animated SVG Background -->
+    <div class="absolute inset-0 -z-10">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 1440 320"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path fill="#184085" fill-opacity="0.08">
+          <animate
+            attributeName="d"
+            dur="10s"
+            repeatCount="indefinite"
+            values="M0,160L80,170C160,180,320,200,480,186.7C640,173,800,127,960,128C1120,129,1280,183,1360,210.7L1440,238L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z;
+            M0,192L80,186.7C160,181,320,171,480,154.7C640,139,800,117,960,133.3C1120,149,1280,203,1360,229.3L1440,256L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z;
+            M0,160L80,170C160,180,320,200,480,186.7C640,173,800,127,960,128C1120,129,1280,183,1360,210.7L1440,238L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
+          />
+        </path>
+      </svg>
+    </div>
+    <!-- Navigation -->
+    <nav class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-3">
+            <img
+              src="public/assets/images/logo.png"
+              alt="VolunTrack Logo"
+              class="h-10 w-10 md:h-12 md:w-12 object-contain"
+            />
+            <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+          </div>
+          <div class="hidden md:flex space-x-6">
+            <a
+              href="index.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Home</a
+            >
+            <a
+              href="src/components/participants.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Participants</a
+            >
+            <a
+              href="src/components/tasks.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Tasks</a
+            >
+            <a
+              href="src/components/results.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Results</a
+            >
+            <a
+              href="src/components/decide.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >DECIDE</a
+            >
+            <a
+              href="src/components/videos.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Videos</a
+            >
+            <a
+              href="src/components/improvements.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Improvements</a
+            >
+            <a
+              href="src/components/poster.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Poster</a
+            >
+          </div>
+          <!-- Mobile menu button -->
+          <button class="md:hidden text-[#184085] focus:outline-none">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="relative text-white py-20 overflow-hidden"
+      style="
+        background: linear-gradient(
+            120deg,
+            rgba(24, 64, 133, 0.85) 60%,
+            rgba(242, 163, 60, 0.7)
+          ),
+          url('public/assets/images/hero-bg.png') center/cover no-repeat;
+      "
+    >
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <h1
+            class="text-4xl md:text-6xl font-bangers mb-6 animate-fade-in-down"
+          >
+            VolunTrack Usability Testing
+          </h1>
+          <p class="text-xl mb-8 animate-fade-in-up delay-200">
+            Discover how we evaluated and improved the user experience of
+            VolunTrack through comprehensive usability testing.
+          </p>
+          <a
+            href="src/components/results.html"
+            class="inline-block bg-[#f2a33c] text-[#184085] font-semibold px-8 py-3 rounded-lg hover:bg-[#e6952e] transition-colors shadow-lg transform hover:scale-110 focus:scale-105 focus:ring-4 focus:ring-[#f2a33c]/50 animate-pulse"
+          >
+            View Results
+          </a>
+        </div>
+      </div>
+      <!-- All floating SVG shapes have been removed for a clean look. -->
+    </section>
+
+    <!-- Testing Team Section -->
+    <section class="py-16 bg-gradient-to-br from-[#f2a33c]/10 to-[#184085]/10">
+      <div class="container mx-auto px-4">
+        <h2
+          class="text-3xl font-bangers text-[#184085] text-center mb-12 tracking-wider drop-shadow"
+        >
+          Meet Our Team
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Team Member 1 -->
+          <div
+            class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
+          >
+            <div
+              class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
+            >
+              <img
+                src="public/assets/images/benjie.jpg"
+                alt="Benjie A. Barrogo"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <h3
+              class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
+            >
+              Benjie A. Barrogo
+            </h3>
+            <p class="text-[#f2a33c] font-semibold text-center">Marketer</p>
+          </div>
+          <!-- Team Member 2 -->
+          <div
+            class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
+          >
+            <div
+              class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
+            >
+              <img
+                src="public/assets/images/pheobe.jpg"
+                alt="Phoebe Kaye R. Crispino"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <h3
+              class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
+            >
+              Phoebe Kaye R. Crispino
+            </h3>
+            <p class="text-[#f2a33c] font-semibold text-center">Marketer</p>
+          </div>
+          <!-- Team Member 3 -->
+          <div
+            class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
+          >
+            <div
+              class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
+            >
+              <img
+                src="public/assets/images/mark.jpg"
+                alt="Mark Andrew R. Francisco"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <h3
+              class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
+            >
+              Mark Andrew R. Francisco
+            </h3>
+            <p class="text-[#f2a33c] font-semibold text-center">Developer</p>
+          </div>
+          <!-- Team Member 4 -->
+          <div
+            class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
+          >
+            <div
+              class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
+            >
+              <img
+                src="public/assets/images/kyla.jpg"
+                alt="Kyla Celine N. Romero"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <h3
+              class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
+            >
+              Kyla Celine N. Romero
+            </h3>
+            <p class="text-[#f2a33c] font-semibold text-center">
+              UI/UX Designer
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fun Fact Carousel -->
+    <section class="py-12 bg-gradient-to-r from-[#f2a33c]/10 to-[#184085]/10">
+      <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+          <h2 class="text-2xl font-bangers text-[#184085] mb-6">
+            Did You Know?
+          </h2>
+          <div
+            id="fun-fact-carousel"
+            class="bg-white rounded-lg shadow-lg p-8 text-xl text-[#184085] min-h-[80px] flex items-center justify-center transition-all duration-500"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#184085] text-white py-8">
+      <div class="container mx-auto px-4">
+        <div class="text-center">
+          <p class="mb-2">© 2024 VolunTrack Usability Testing Project</p>
+          <p class="text-sm text-gray-300">
+            A comprehensive evaluation of user experience and interface design
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="src/scripts/main.js"></script>
+    <script>
+      // Fun Fact Carousel
+      const funFacts = [
+        "VolunTrack was tested by 5 diverse college students!",
+        "Average task completion time was just 35.4 seconds.",
+        "User satisfaction rate reached 4.27 out of 5.",
+        "The UI/UX was rated as easy to use by all participants.",
+        "Our team includes marketers, a developer, and a designer!",
+        "VolunTrack helps connect volunteers with real opportunities.",
+      ];
+      let factIndex = 0;
+      function showFunFact() {
+        const el = document.getElementById("fun-fact-carousel");
+        if (el) {
+          el.textContent = funFacts[factIndex];
+          el.classList.remove("opacity-0");
+          el.classList.add("opacity-100");
+        }
+      }
+      function nextFunFact() {
+        const el = document.getElementById("fun-fact-carousel");
+        if (el) {
+          el.classList.remove("opacity-100");
+          el.classList.add("opacity-0");
+          setTimeout(() => {
+            factIndex = (factIndex + 1) % funFacts.length;
+            showFunFact();
+          }, 400);
+        }
+      }
+      setInterval(nextFunFact, 3500);
+      window.addEventListener("DOMContentLoaded", showFunFact);
+    </script>
+    <style>
+      /* Custom Animations */
+      @keyframes fade-in-down {
+        0% {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-down {
+        animation: fade-in-down 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      @keyframes fade-in-up {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-up {
+        animation: fade-in-up 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      .delay-200 {
+        animation-delay: 0.2s;
+      }
+      @keyframes bounce-slow {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+      .animate-bounce-slow {
+        animation: bounce-slow 2s infinite;
+      }
+      @keyframes float-slow {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      .animate-float-slow {
+        animation: float-slow 6s ease-in-out infinite;
+      }
+      @keyframes float-medium {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-18px);
+        }
+      }
+      .animate-float-medium {
+        animation: float-medium 8s ease-in-out infinite;
+      }
+      @keyframes float-fast {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-30px);
+        }
+      }
+      .animate-float-fast {
+        animation: float-fast 4s ease-in-out infinite;
+      }
+      .font-bangers {
+        font-family: "Bangers", cursive;
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Poster - VolunTrack Usability Testing</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.cdnfonts.com/css/intro-rust" rel="stylesheet" />
+    <link href="../../public/output.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-50 font-['Poppins'] min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-3">
+            <img
+              src="../../public/assets/images/logo.png"
+              alt="VolunTrack Logo"
+              class="h-10 w-10 md:h-12 md:w-12 object-contain"
+            />
+            <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+          </div>
+          <div class="hidden md:flex space-x-6">
+            <a
+              href="../../index.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Home</a
+            >
+            <a
+              href="participants.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Participants</a
+            >
+            <a
+              href="tasks.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Tasks</a
+            >
+            <a
+              href="results.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Results</a
+            >
+            <a
+              href="decide.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >DECIDE</a
+            >
+            <a
+              href="videos.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Videos</a
+            >
+            <a
+              href="improvements.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Improvements</a
+            >
+            <a
+              href="poster.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Poster</a
+            >
+          </div>
+          <!-- Mobile menu button -->
+          <button class="md:hidden text-[#184085] focus:outline-none">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header
+      class="bg-gradient-to-r from-[#184085] to-[#1a4a9c] text-white py-12"
+    >
+      <div class="container mx-auto px-4">
+        <h1 class="text-4xl font-bangers text-center mb-4">Project Poster</h1>
+        <p class="text-center text-lg max-w-3xl mx-auto">
+          A visual summary of our usability testing findings and recommendations
+          for VolunTrack.
+        </p>
+      </div>
+    </header>
+
+    <!-- Poster Content -->
+    <section class="py-12">
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+          <!-- Project Overview -->
+          <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bangers text-[#184085] mb-6">
+              Project Overview
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                  About VolunTrack
+                </h3>
+                <p class="text-gray-700 mb-4">
+                  A volunteer management platform designed to connect
+                  organizations with volunteers, featuring campaign management,
+                  request handling, and location-based services.
+                </p>
+                <div class="flex items-center space-x-4">
+                  <div class="bg-[#184085] text-white px-4 py-2 rounded-lg">
+                    <span class="font-semibold">5</span> Participants
+                  </div>
+                  <div class="bg-[#f2a33c] text-white px-4 py-2 rounded-lg">
+                    <span class="font-semibold">3</span> Tasks
+                  </div>
+                  <div class="bg-[#184085] text-white px-4 py-2 rounded-lg">
+                    <span class="font-semibold">4.27</span> Satisfaction
+                  </div>
+                </div>
+              </div>
+              <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                  Testing Goals
+                </h3>
+                <ul class="space-y-3 text-gray-700">
+                  <li class="flex items-start">
+                    <svg
+                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                    <span>Evaluate interface usability and intuitiveness</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg
+                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                    <span>Assess task completion efficiency</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg
+                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                    <span>Gather user feedback for improvements</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key Findings -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+              <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                Task Performance
+              </h3>
+              <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-600">Average Completion Time</span>
+                  <span class="text-[#184085] font-semibold">35.4s</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-600">Success Rate</span>
+                  <span class="text-[#184085] font-semibold">93%</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-600">Error Rate</span>
+                  <span class="text-[#184085] font-semibold">7%</span>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+              <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                User Satisfaction
+              </h3>
+              <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-600">Overall Rating</span>
+                  <span class="text-[#184085] font-semibold">4.27/5</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-600">Ease of Use</span>
+                  <span class="text-[#184085] font-semibold">4.1/5</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-600">Would Recommend</span>
+                  <span class="text-[#184085] font-semibold">4.3/5</span>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+              <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                Interface Complexity
+              </h3>
+              <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-600">Complexity Rating</span>
+                  <span class="text-[#184085] font-semibold">1.6/5</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-600">Learning Curve</span>
+                  <span class="text-[#184085] font-semibold">Low</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-600">Navigation Clarity</span>
+                  <span class="text-[#184085] font-semibold">High</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recommendations -->
+          <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bangers text-[#184085] mb-6">
+              Key Recommendations
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <div
+                    class="flex-shrink-0 w-8 h-8 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
+                  >
+                    1
+                  </div>
+                  <div class="ml-4">
+                    <h4 class="font-semibold text-[#184085]">
+                      Map Enhancement
+                    </h4>
+                    <p class="text-gray-600">
+                      Improve map resolution and implement clear markers with
+                      tooltips
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="flex-shrink-0 w-8 h-8 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
+                  >
+                    2
+                  </div>
+                  <div class="ml-4">
+                    <h4 class="font-semibold text-[#184085]">
+                      Interface Updates
+                    </h4>
+                    <p class="text-gray-600">
+                      Enlarge navigation elements and improve visual hierarchy
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <div
+                    class="flex-shrink-0 w-8 h-8 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
+                  >
+                    3
+                  </div>
+                  <div class="ml-4">
+                    <h4 class="font-semibold text-[#184085]">
+                      Process Streamlining
+                    </h4>
+                    <p class="text-gray-600">
+                      Simplify approval workflow and enhance user feedback
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="flex-shrink-0 w-8 h-8 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
+                  >
+                    4
+                  </div>
+                  <div class="ml-4">
+                    <h4 class="font-semibold text-[#184085]">
+                      Onboarding Experience
+                    </h4>
+                    <p class="text-gray-600">
+                      Develop comprehensive tutorial system and help guides
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Download Section -->
+          <div class="bg-white rounded-lg shadow-lg p-8">
+            <h2 class="text-2xl font-bangers text-[#184085] mb-6">
+              Download Resources
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <a
+                href="#"
+                class="bg-gray-50 rounded-lg p-6 text-center hover:bg-gray-100 transition-colors"
+              >
+                <svg
+                  class="w-12 h-12 text-[#184085] mx-auto mb-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  ></path>
+                </svg>
+                <h3 class="font-semibold text-[#184085]">Full Report</h3>
+                <p class="text-gray-600 text-sm">
+                  Detailed analysis and findings
+                </p>
+              </a>
+              <a
+                href="#"
+                class="bg-gray-50 rounded-lg p-6 text-center hover:bg-gray-100 transition-colors"
+              >
+                <svg
+                  class="w-12 h-12 text-[#184085] mx-auto mb-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  ></path>
+                </svg>
+                <h3 class="font-semibold text-[#184085]">Poster PDF</h3>
+                <p class="text-gray-600 text-sm">High-resolution poster</p>
+              </a>
+              <a
+                href="#"
+                class="bg-gray-50 rounded-lg p-6 text-center hover:bg-gray-100 transition-colors"
+              >
+                <svg
+                  class="w-12 h-12 text-[#184085] mx-auto mb-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                  ></path>
+                </svg>
+                <h3 class="font-semibold text-[#184085]">Presentation</h3>
+                <p class="text-gray-600 text-sm">Slides and visual aids</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="flex-1"></main>
+    <footer class="bg-[#184085] text-white py-8 w-full">
+      <div class="container mx-auto px-4">
+        <div class="text-center">
+          <p class="mb-2">© 2024 VolunTrack Usability Testing Project</p>
+          <p class="text-sm text-gray-300">
+            A comprehensive evaluation of user experience and interface design
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../src/scripts/main.js"></script>
+    <style>
+      .font-bangers {
+        font-family: "Bangers", cursive;
+      }
+    </style>
+  </body>
+</html>
