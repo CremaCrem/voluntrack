@@ -5,26 +5,241 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Poster - VolunTrack Usability Testing</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&family=Comic+Neue:wght@400;700&family=Creepster&display=swap"
       rel="stylesheet"
     />
     <link href="https://fonts.cdnfonts.com/css/intro-rust" rel="stylesheet" />
     <link href="../../public/output.css" rel="stylesheet" />
+    <!-- Comic Book Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+      /* Comic Book Base Styles */
+      :root {
+        --comic-primary: #184085;
+        --comic-secondary: #f2a33c;
+        --comic-accent: #ff4d4d;
+        --comic-text: #333333;
+        --comic-bg: #ffffff;
+      }
+
+      body {
+        background-color: var(--comic-bg);
+        font-family: "Comic Neue", cursive;
+      }
+
+      /* Comic Panel Styles */
+      .comic-panel {
+        border: 4px solid var(--comic-text);
+        border-radius: 8px;
+        box-shadow: 4px 4px 0 var(--comic-text);
+        background: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Speech Bubble Styles */
+      .speech-bubble {
+        position: relative;
+        background: white;
+        border: 3px solid var(--comic-text);
+        border-radius: 20px;
+        padding: 15px;
+        margin: 20px;
+      }
+
+      .speech-bubble::before {
+        content: "";
+        position: absolute;
+        bottom: -20px;
+        left: 20px;
+        border-width: 20px 20px 0;
+        border-style: solid;
+        border-color: white transparent;
+      }
+
+      .speech-bubble::after {
+        content: "";
+        position: absolute;
+        bottom: -23px;
+        left: 20px;
+        border-width: 20px 20px 0;
+        border-style: solid;
+        border-color: var(--comic-text) transparent;
+      }
+
+      /* Comic Navigation */
+      .comic-nav {
+        background: var(--comic-primary);
+        border-bottom: 4px solid var(--comic-text);
+        box-shadow: 0 4px 0 var(--comic-text);
+      }
+
+      .comic-nav a {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .comic-nav a:hover {
+        transform: translateY(-2px);
+      }
+
+      .comic-nav a::after {
+        content: "POW!";
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Creepster", cursive;
+        color: var(--comic-accent);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .comic-nav a:hover::after {
+        opacity: 1;
+        top: -30px;
+      }
+
+      /* Mobile Menu Overlay */
+      .mobile-menu-overlay {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      .mobile-menu {
+        border-right: 4px solid var(--comic-text);
+        box-shadow: 4px 0 0 var(--comic-text);
+      }
+
+      /* Stat Card Styles */
+      .stat-card {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .stat-card::before {
+        content: "📊";
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background: var(--comic-accent);
+        color: white;
+        padding: 5px 10px;
+        border: 2px solid var(--comic-text);
+        border-radius: 4px;
+        font-family: "Bangers", cursive;
+        transform: rotate(15deg);
+        z-index: 2;
+      }
+
+      /* Action Lines */
+      .action-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(255, 77, 77, 0.1) 10px,
+          rgba(255, 77, 77, 0.1) 20px
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* Comic Title Styles */
+      .comic-title {
+        font-family: "Bangers", cursive;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 1px 1px 0 var(--comic-text);
+        position: relative;
+        display: inline-block;
+      }
+
+      /* Download Card Styles */
+      .download-card {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .download-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .download-card::before {
+        content: "💾";
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background: var(--comic-accent);
+        color: white;
+        padding: 5px 10px;
+        border: 2px solid var(--comic-text);
+        border-radius: 4px;
+        font-family: "Bangers", cursive;
+        transform: rotate(15deg);
+        z-index: 2;
+      }
+
+      /* Custom Animations */
+      @keyframes fade-in-down {
+        0% {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-down {
+        animation: fade-in-down 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      @keyframes fade-in-up {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-up {
+        animation: fade-in-up 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      .delay-200 {
+        animation-delay: 0.2s;
+      }
+      .font-bangers {
+        font-family: "Bangers", cursive;
+      }
+    </style>
   </head>
   <body class="bg-gray-50 font-['Poppins'] min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav
-      class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30 fixed w-full top-0 z-50"
-    >
+    <nav class="comic-nav text-white shadow-lg fixed w-full top-0 z-50">
       <div class="container mx-auto px-4 py-3">
         <div class="flex justify-between items-center">
           <div class="flex items-center space-x-3">
             <img
               src="../../public/assets/images/logo.png"
               alt="VolunTrack Logo"
-              class="h-10 w-10 md:h-12 md:w-12 object-contain"
+              class="h-10 w-10 md:h-12 md:w-12 object-contain comic-panel"
             />
-            <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+            <div class="text-2xl font-bangers tracking-wide comic-title">
+              VolunTrack
+            </div>
           </div>
           <!-- Desktop Navigation -->
           <div class="hidden md:flex space-x-6">
@@ -71,7 +286,7 @@
           </div>
           <!-- Mobile menu button -->
           <button
-            class="md:hidden mobile-menu-button text-[#184085] focus:outline-none"
+            class="md:hidden mobile-menu-button text-white focus:outline-none comic-button"
           >
             <svg
               class="w-6 h-6"
@@ -93,7 +308,7 @@
 
     <!-- Mobile Menu Overlay -->
     <div
-      class="mobile-menu-overlay fixed inset-0 bg-transparent z-40 hidden"
+      class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-40 hidden"
     ></div>
 
     <!-- Mobile Menu -->
@@ -105,50 +320,52 @@
           <img
             src="../../public/assets/images/logo.png"
             alt="VolunTrack Logo"
-            class="h-10 w-10 object-contain"
+            class="h-10 w-10 object-contain comic-panel"
           />
-          <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+          <div class="text-2xl font-bangers tracking-wide comic-title">
+            VolunTrack
+          </div>
         </div>
       </div>
       <div class="p-4 space-y-4">
         <a
           href="../../index.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Home</a
         >
         <a
           href="participants.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Participants</a
         >
         <a
           href="tasks.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Tasks</a
         >
         <a
           href="results.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Results</a
         >
         <a
           href="decide.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >DECIDE</a
         >
         <a
           href="videos.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Videos</a
         >
         <a
           href="improvements.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Improvements</a
         >
         <a
           href="poster.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Poster</a
         >
       </div>
@@ -158,29 +375,50 @@
     <div class="pt-16">
       <!-- Header -->
       <header
-        class="bg-gradient-to-r from-[#184085] to-[#1a4a9c] text-white py-12"
+        class="relative text-white py-20 overflow-hidden comic-panel"
+        style="
+          background: linear-gradient(
+              120deg,
+              rgba(24, 64, 133, 0.85) 60%,
+              rgba(242, 163, 60, 0.7)
+            ),
+            url('../../public/assets/images/hero-bg.png') center/cover no-repeat;
+        "
       >
+        <div class="action-lines"></div>
         <div class="container mx-auto px-4">
-          <h1 class="text-4xl font-bangers text-center mb-4">Project Poster</h1>
-          <p class="text-center text-lg max-w-3xl mx-auto">
-            A visual summary of our usability testing findings and
-            recommendations for VolunTrack.
-          </p>
+          <h1
+            class="text-4xl md:text-6xl font-bangers mb-6 animate-fade-in-down comic-title text-center"
+          >
+            Project Poster
+          </h1>
+          <div
+            class="speech-bubble text-black text-xl mb-8 animate-fade-in-up delay-200 text-center"
+          >
+            A visual summary of our epic usability testing findings and
+            recommendations for VolunTrack!
+          </div>
         </div>
       </header>
 
       <!-- Poster Content -->
-      <section class="py-12">
+      <section
+        class="py-12 bg-gradient-to-br from-[#f2a33c]/10 to-[#184085]/10"
+      >
         <div class="container mx-auto px-4">
           <div class="max-w-6xl mx-auto">
             <!-- Project Overview -->
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-              <h2 class="text-2xl font-bangers text-[#184085] mb-6">
+            <div class="comic-panel p-8 mb-8 animate-fade-in-up">
+              <h2
+                class="text-3xl font-bangers text-[#f2a33c] mb-6 comic-title text-center"
+              >
                 Project Overview
               </h2>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                <div class="speech-bubble">
+                  <h3
+                    class="text-xl font-bangers text-[#f2a33c] mb-4 comic-title"
+                  >
                     About VolunTrack
                   </h3>
                   <p class="text-gray-700 mb-4">
@@ -189,70 +427,36 @@
                     management, request handling, and location-based services.
                   </p>
                   <div class="flex items-center space-x-4">
-                    <div class="bg-[#184085] text-white px-4 py-2 rounded-lg">
-                      <span class="font-semibold">5</span> Participants
+                    <div class="comic-panel bg-[#184085] text-black px-4 py-2">
+                      <span class="font-bangers">5</span> Participants
                     </div>
-                    <div class="bg-[#f2a33c] text-white px-4 py-2 rounded-lg">
-                      <span class="font-semibold">3</span> Tasks
+                    <div class="comic-panel bg-[#f2a33c] text-black px-4 py-2">
+                      <span class="font-bangers">3</span> Tasks
                     </div>
-                    <div class="bg-[#184085] text-white px-4 py-2 rounded-lg">
-                      <span class="font-semibold">4.27</span> Satisfaction
+                    <div class="comic-panel bg-[#184085] text-black px-4 py-2">
+                      <span class="font-bangers">4.27</span> Satisfaction
                     </div>
                   </div>
                 </div>
-                <div class="bg-gray-50 rounded-lg p-6">
-                  <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                <div class="comic-panel p-6">
+                  <h3
+                    class="text-xl font-bangers text-[#f2a33c] mb-4 comic-title"
+                  >
                     Testing Goals
                   </h3>
                   <ul class="space-y-3 text-gray-700">
-                    <li class="flex items-start">
-                      <svg
-                        class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M5 13l4 4L19 7"
-                        ></path>
-                      </svg>
+                    <li class="flex items-start speech-bubble">
+                      <span class="mr-2">🎯</span>
                       <span
                         >Evaluate interface usability and intuitiveness</span
                       >
                     </li>
-                    <li class="flex items-start">
-                      <svg
-                        class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M5 13l4 4L19 7"
-                        ></path>
-                      </svg>
+                    <li class="flex items-start speech-bubble">
+                      <span class="mr-2">🎯</span>
                       <span>Assess task completion efficiency</span>
                     </li>
-                    <li class="flex items-start">
-                      <svg
-                        class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M5 13l4 4L19 7"
-                        ></path>
-                      </svg>
+                    <li class="flex items-start speech-bubble">
+                      <span class="mr-2">🎯</span>
                       <span>Gather user feedback for improvements</span>
                     </li>
                   </ul>
@@ -262,80 +466,90 @@
 
             <!-- Key Findings -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-              <div class="bg-white rounded-lg shadow-lg p-6">
-                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+              <div class="stat-card comic-panel p-6 animate-fade-in-up">
+                <h3
+                  class="text-xl font-bangers text-[#f2a33c] mb-4 comic-title"
+                >
                   Task Performance
                 </h3>
                 <div class="space-y-4">
-                  <div class="flex justify-between items-center">
+                  <div class="flex justify-between items-center speech-bubble">
                     <span class="text-gray-600">Average Completion Time</span>
-                    <span class="text-[#184085] font-semibold">35.4s</span>
+                    <span class="text-[#184085] font-bangers">35.4s</span>
                   </div>
-                  <div class="flex justify-between items-center">
+                  <div class="flex justify-between items-center speech-bubble">
                     <span class="text-gray-600">Success Rate</span>
-                    <span class="text-[#184085] font-semibold">93%</span>
+                    <span class="text-[#184085] font-bangers">93%</span>
                   </div>
-                  <div class="flex justify-between items-center">
+                  <div class="flex justify-between items-center speech-bubble">
                     <span class="text-gray-600">Error Rate</span>
-                    <span class="text-[#184085] font-semibold">7%</span>
+                    <span class="text-[#184085] font-bangers">7%</span>
                   </div>
                 </div>
               </div>
-              <div class="bg-white rounded-lg shadow-lg p-6">
-                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+              <div
+                class="stat-card comic-panel p-6 animate-fade-in-up delay-200"
+              >
+                <h3
+                  class="text-xl font-bangers text-[#f2a33c] mb-4 comic-title"
+                >
                   User Satisfaction
                 </h3>
                 <div class="space-y-4">
-                  <div class="flex justify-between items-center">
+                  <div class="flex justify-between items-center speech-bubble">
                     <span class="text-gray-600">Overall Rating</span>
-                    <span class="text-[#184085] font-semibold">4.27/5</span>
+                    <span class="text-[#184085] font-bangers">4.27/5</span>
                   </div>
-                  <div class="flex justify-between items-center">
+                  <div class="flex justify-between items-center speech-bubble">
                     <span class="text-gray-600">Ease of Use</span>
-                    <span class="text-[#184085] font-semibold">4.1/5</span>
+                    <span class="text-[#184085] font-bangers">4.1/5</span>
                   </div>
-                  <div class="flex justify-between items-center">
+                  <div class="flex justify-between items-center speech-bubble">
                     <span class="text-gray-600">Would Recommend</span>
-                    <span class="text-[#184085] font-semibold">4.3/5</span>
+                    <span class="text-[#184085] font-bangers">4.3/5</span>
                   </div>
                 </div>
               </div>
-              <div class="bg-white rounded-lg shadow-lg p-6">
-                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+              <div class="stat-card comic-panel p-6 animate-fade-in-up">
+                <h3
+                  class="text-xl font-bangers text-[#f2a33c] mb-4 comic-title"
+                >
                   Interface Complexity
                 </h3>
                 <div class="space-y-4">
-                  <div class="flex justify-between items-center">
+                  <div class="flex justify-between items-center speech-bubble">
                     <span class="text-gray-600">Complexity Rating</span>
-                    <span class="text-[#184085] font-semibold">1.6/5</span>
+                    <span class="text-[#184085] font-bangers">1.6/5</span>
                   </div>
-                  <div class="flex justify-between items-center">
+                  <div class="flex justify-between items-center speech-bubble">
                     <span class="text-gray-600">Learning Curve</span>
-                    <span class="text-[#184085] font-semibold">Low</span>
+                    <span class="text-[#184085] font-bangers">Low</span>
                   </div>
-                  <div class="flex justify-between items-center">
+                  <div class="flex justify-between items-center speech-bubble">
                     <span class="text-gray-600">Navigation Clarity</span>
-                    <span class="text-[#184085] font-semibold">High</span>
+                    <span class="text-[#184085] font-bangers">High</span>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Recommendations -->
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-              <h2 class="text-2xl font-bangers text-[#184085] mb-6">
+            <div class="comic-panel p-8 mb-8 animate-fade-in-up">
+              <h2
+                class="text-3xl font-bangers text-[#f2a33c] mb-6 comic-title text-center"
+              >
                 Key Recommendations
               </h2>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="space-y-4">
-                  <div class="flex items-start">
+                  <div class="flex items-start speech-bubble">
                     <div
-                      class="flex-shrink-0 w-8 h-8 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
+                      class="flex-shrink-0 w-8 h-8 bg-[#184085] rounded-full flex items-center justify-center text-white font-bangers"
                     >
                       1
                     </div>
                     <div class="ml-4">
-                      <h4 class="font-semibold text-[#184085]">
+                      <h4 class="font-bangers text-[#f2a33c] comic-title">
                         Map Enhancement
                       </h4>
                       <p class="text-gray-600">
@@ -344,14 +558,14 @@
                       </p>
                     </div>
                   </div>
-                  <div class="flex items-start">
+                  <div class="flex items-start speech-bubble">
                     <div
-                      class="flex-shrink-0 w-8 h-8 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
+                      class="flex-shrink-0 w-8 h-8 bg-[#184085] rounded-full flex items-center justify-center text-white font-bangers"
                     >
                       2
                     </div>
                     <div class="ml-4">
-                      <h4 class="font-semibold text-[#184085]">
+                      <h4 class="font-bangers text-[#f2a33c] comic-title">
                         Interface Updates
                       </h4>
                       <p class="text-gray-600">
@@ -361,14 +575,14 @@
                   </div>
                 </div>
                 <div class="space-y-4">
-                  <div class="flex items-start">
+                  <div class="flex items-start speech-bubble">
                     <div
-                      class="flex-shrink-0 w-8 h-8 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
+                      class="flex-shrink-0 w-8 h-8 bg-[#184085] rounded-full flex items-center justify-center text-white font-bangers"
                     >
                       3
                     </div>
                     <div class="ml-4">
-                      <h4 class="font-semibold text-[#184085]">
+                      <h4 class="font-bangers text-[#f2a33c] comic-title">
                         Process Streamlining
                       </h4>
                       <p class="text-gray-600">
@@ -376,14 +590,14 @@
                       </p>
                     </div>
                   </div>
-                  <div class="flex items-start">
+                  <div class="flex items-start speech-bubble">
                     <div
-                      class="flex-shrink-0 w-8 h-8 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
+                      class="flex-shrink-0 w-8 h-8 bg-[#184085] rounded-full flex items-center justify-center text-white font-bangers"
                     >
                       4
                     </div>
                     <div class="ml-4">
-                      <h4 class="font-semibold text-[#184085]">
+                      <h4 class="font-bangers text-[#f2a33c] comic-title">
                         Onboarding Experience
                       </h4>
                       <p class="text-gray-600">
@@ -396,14 +610,16 @@
             </div>
 
             <!-- Download Section -->
-            <div class="bg-white rounded-lg shadow-lg p-8">
-              <h2 class="text-2xl font-bangers text-[#184085] mb-6">
+            <div class="comic-panel p-8 animate-fade-in-up">
+              <h2
+                class="text-3xl font-bangers text-[#f2a33c] mb-6 comic-title text-center"
+              >
                 Download Resources
               </h2>
               <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <a
                   href="#"
-                  class="bg-gray-50 rounded-lg p-6 text-center hover:bg-gray-100 transition-colors"
+                  class="download-card comic-panel p-6 text-center hover:bg-gray-100 transition-colors"
                 >
                   <svg
                     class="w-12 h-12 text-[#184085] mx-auto mb-4"
@@ -418,14 +634,16 @@
                       d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                     ></path>
                   </svg>
-                  <h3 class="font-semibold text-[#184085]">Full Report</h3>
-                  <p class="text-gray-600 text-sm">
+                  <h3 class="font-bangers text-[#184085] comic-title">
+                    Full Report
+                  </h3>
+                  <p class="text-gray-600 text-sm speech-bubble">
                     Detailed analysis and findings
                   </p>
                 </a>
                 <a
                   href="#"
-                  class="bg-gray-50 rounded-lg p-6 text-center hover:bg-gray-100 transition-colors"
+                  class="download-card comic-panel p-6 text-center hover:bg-gray-100 transition-colors"
                 >
                   <svg
                     class="w-12 h-12 text-[#184085] mx-auto mb-4"
@@ -440,12 +658,16 @@
                       d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                     ></path>
                   </svg>
-                  <h3 class="font-semibold text-[#184085]">Poster PDF</h3>
-                  <p class="text-gray-600 text-sm">High-resolution poster</p>
+                  <h3 class="font-bangers text-[#184085] comic-title">
+                    Poster PDF
+                  </h3>
+                  <p class="text-gray-600 text-sm speech-bubble">
+                    High-resolution poster
+                  </p>
                 </a>
                 <a
                   href="#"
-                  class="bg-gray-50 rounded-lg p-6 text-center hover:bg-gray-100 transition-colors"
+                  class="download-card comic-panel p-6 text-center hover:bg-gray-100 transition-colors"
                 >
                   <svg
                     class="w-12 h-12 text-[#184085] mx-auto mb-4"
@@ -460,8 +682,12 @@
                       d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
                     ></path>
                   </svg>
-                  <h3 class="font-semibold text-[#184085]">Presentation</h3>
-                  <p class="text-gray-600 text-sm">Slides and visual aids</p>
+                  <h3 class="font-bangers text-[#184085] comic-title">
+                    Presentation
+                  </h3>
+                  <p class="text-gray-600 text-sm speech-bubble">
+                    Slides and visual aids
+                  </p>
                 </a>
               </div>
             </div>
@@ -469,24 +695,102 @@
         </div>
       </section>
 
-      <main class="flex-1"></main>
-      <footer class="bg-[#184085] text-white py-8 w-full">
+      <!-- Footer -->
+      <footer class="bg-[#184085] text-white py-8 w-full comic-panel">
         <div class="container mx-auto px-4">
           <div class="text-center">
-            <p class="mb-2">© 2024 VolunTrack Usability Testing Project</p>
-            <p class="text-sm text-gray-300">
+            <p class="mb-2 font-bangers text-xl">
+              © 2024 VolunTrack Usability Testing Project
+            </p>
+            <p class="text-sm text-black speech-bubble">
               A comprehensive evaluation of user experience and interface design
             </p>
           </div>
         </div>
       </footer>
-
-      <script src="../../src/scripts/main.js"></script>
-      <style>
-        .font-bangers {
-          font-family: "Bangers", cursive;
-        }
-      </style>
     </div>
+
+    <script src="../../src/scripts/main.js"></script>
+    <script>
+      // Initialize GSAP
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Animate elements on scroll
+      gsap.utils.toArray(".comic-panel").forEach((panel) => {
+        gsap.from(panel, {
+          scrollTrigger: {
+            trigger: panel,
+            start: "top bottom-=100",
+            toggleActions: "play none none reverse",
+          },
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+        });
+      });
+
+      // Mobile Menu Functionality
+      const mobileMenuButton = document.querySelector(".mobile-menu-button");
+      const mobileMenu = document.querySelector(".mobile-menu");
+      const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
+      let isMenuOpen = false;
+
+      function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        mobileMenu.classList.toggle("-translate-x-full");
+        mobileMenuOverlay.classList.toggle("hidden");
+
+        // Add comic book effect to menu items
+        if (isMenuOpen) {
+          gsap.from(".mobile-menu a", {
+            x: -50,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "back.out(1.7)",
+          });
+        }
+      }
+
+      mobileMenuButton.addEventListener("click", toggleMenu);
+      mobileMenuOverlay.addEventListener("click", toggleMenu);
+
+      // Add hover effects to stat cards
+      document.querySelectorAll(".stat-card").forEach((card) => {
+        card.addEventListener("mouseenter", () => {
+          gsap.to(card, {
+            y: -10,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        });
+        card.addEventListener("mouseleave", () => {
+          gsap.to(card, {
+            y: 0,
+            duration: 0.3,
+            ease: "power2.in",
+          });
+        });
+      });
+
+      // Add hover effects to download cards
+      document.querySelectorAll(".download-card").forEach((card) => {
+        card.addEventListener("mouseenter", () => {
+          gsap.to(card, {
+            y: -10,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        });
+        card.addEventListener("mouseleave", () => {
+          gsap.to(card, {
+            y: 0,
+            duration: 0.3,
+            ease: "power2.in",
+          });
+        });
+      });
+    </script>
   </body>
 </html>

@@ -5,26 +5,228 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Videos - VolunTrack Usability Testing</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&family=Comic+Neue:wght@400;700&family=Creepster&display=swap"
       rel="stylesheet"
     />
     <link href="https://fonts.cdnfonts.com/css/intro-rust" rel="stylesheet" />
     <link href="../../public/output.css" rel="stylesheet" />
+    <!-- Comic Book Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+      /* Comic Book Base Styles */
+      :root {
+        --comic-primary: #184085;
+        --comic-secondary: #f2a33c;
+        --comic-accent: #ff4d4d;
+        --comic-text: #333333;
+        --comic-bg: #ffffff;
+      }
+
+      body {
+        background-color: var(--comic-bg);
+        font-family: "Comic Neue", cursive;
+      }
+
+      /* Comic Panel Styles */
+      .comic-panel {
+        border: 4px solid var(--comic-text);
+        border-radius: 8px;
+        box-shadow: 4px 4px 0 var(--comic-text);
+        background: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Speech Bubble Styles */
+      .speech-bubble {
+        position: relative;
+        background: white;
+        border: 3px solid var(--comic-text);
+        border-radius: 20px;
+        padding: 15px;
+        margin: 20px;
+      }
+
+      .speech-bubble::before {
+        content: "";
+        position: absolute;
+        bottom: -20px;
+        left: 20px;
+        border-width: 20px 20px 0;
+        border-style: solid;
+        border-color: white transparent;
+      }
+
+      .speech-bubble::after {
+        content: "";
+        position: absolute;
+        bottom: -23px;
+        left: 20px;
+        border-width: 20px 20px 0;
+        border-style: solid;
+        border-color: var(--comic-text) transparent;
+      }
+
+      /* Comic Navigation */
+      .comic-nav {
+        background: var(--comic-primary);
+        border-bottom: 4px solid var(--comic-text);
+        box-shadow: 0 4px 0 var(--comic-text);
+      }
+
+      .comic-nav a {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .comic-nav a:hover {
+        transform: translateY(-2px);
+      }
+
+      .comic-nav a::after {
+        content: "POW!";
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Creepster", cursive;
+        color: var(--comic-accent);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .comic-nav a:hover::after {
+        opacity: 1;
+        top: -30px;
+      }
+
+      /* Mobile Menu Overlay */
+      .mobile-menu-overlay {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      .mobile-menu {
+        border-right: 4px solid var(--comic-text);
+        box-shadow: 4px 0 0 var(--comic-text);
+      }
+
+      /* Video Panel Styles */
+      .video-panel {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .video-panel:hover {
+        transform: scale(1.02);
+      }
+
+      .video-panel::before {
+        content: "🎬";
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background: var(--comic-accent);
+        color: white;
+        padding: 5px 10px;
+        border: 2px solid var(--comic-text);
+        border-radius: 4px;
+        font-family: "Bangers", cursive;
+        transform: rotate(15deg);
+        z-index: 2;
+      }
+
+      /* Action Lines */
+      .action-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(255, 77, 77, 0.1) 10px,
+          rgba(255, 77, 77, 0.1) 20px
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* Comic Title Styles */
+      .comic-title {
+        font-family: "Bangers", cursive;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 3px 3px 0 var(--comic-text);
+        position: relative;
+        display: inline-block;
+      }
+
+      .comic-title::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        background: var(--comic-accent);
+        z-index: -1;
+        transform: rotate(-2deg);
+      }
+
+      /* Custom Animations */
+      @keyframes fade-in-down {
+        0% {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-down {
+        animation: fade-in-down 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      @keyframes fade-in-up {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-up {
+        animation: fade-in-up 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      .delay-200 {
+        animation-delay: 0.2s;
+      }
+      .font-bangers {
+        font-family: "Bangers", cursive;
+      }
+    </style>
   </head>
   <body class="bg-gray-50 font-['Poppins'] min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav
-      class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30 fixed w-full top-0 z-50"
-    >
+    <nav class="comic-nav text-white shadow-lg fixed w-full top-0 z-50">
       <div class="container mx-auto px-4 py-3">
         <div class="flex justify-between items-center">
           <div class="flex items-center space-x-3">
             <img
               src="../../public/assets/images/logo.png"
               alt="VolunTrack Logo"
-              class="h-10 w-10 md:h-12 md:w-12 object-contain"
+              class="h-10 w-10 md:h-12 md:w-12 object-contain comic-panel"
             />
-            <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+            <div class="text-2xl font-bangers tracking-wide comic-title">
+              VolunTrack
+            </div>
           </div>
           <!-- Desktop Navigation -->
           <div class="hidden md:flex space-x-6">
@@ -71,7 +273,7 @@
           </div>
           <!-- Mobile menu button -->
           <button
-            class="md:hidden mobile-menu-button text-[#184085] focus:outline-none"
+            class="md:hidden mobile-menu-button text-white focus:outline-none comic-button"
           >
             <svg
               class="w-6 h-6"
@@ -93,7 +295,7 @@
 
     <!-- Mobile Menu Overlay -->
     <div
-      class="mobile-menu-overlay fixed inset-0 bg-transparent z-40 hidden"
+      class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-40 hidden"
     ></div>
 
     <!-- Mobile Menu -->
@@ -105,50 +307,52 @@
           <img
             src="../../public/assets/images/logo.png"
             alt="VolunTrack Logo"
-            class="h-10 w-10 object-contain"
+            class="h-10 w-10 object-contain comic-panel"
           />
-          <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+          <div class="text-2xl font-bangers tracking-wide comic-title">
+            VolunTrack
+          </div>
         </div>
       </div>
       <div class="p-4 space-y-4">
         <a
           href="../../index.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Home</a
         >
         <a
           href="participants.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Participants</a
         >
         <a
           href="tasks.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Tasks</a
         >
         <a
           href="results.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Results</a
         >
         <a
           href="decide.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >DECIDE</a
         >
         <a
           href="videos.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Videos</a
         >
         <a
           href="improvements.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Improvements</a
         >
         <a
           href="poster.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Poster</a
         >
       </div>
@@ -158,131 +362,173 @@
     <div class="pt-16">
       <!-- Header -->
       <header
-        class="bg-gradient-to-r from-[#184085] to-[#1a4a9c] text-white py-12"
+        class="relative text-white py-20 overflow-hidden comic-panel"
+        style="
+          background: linear-gradient(
+              120deg,
+              rgba(24, 64, 133, 0.85) 60%,
+              rgba(242, 163, 60, 0.7)
+            ),
+            url('../../public/assets/images/hero-bg.png') center/cover no-repeat;
+        "
       >
+        <div class="action-lines"></div>
         <div class="container mx-auto px-4">
-          <h1 class="text-4xl font-bangers text-center mb-4">Testing Videos</h1>
-          <p class="text-center text-lg max-w-3xl mx-auto">
-            Access the recorded usability testing sessions and consent
-            documentation.
-          </p>
+          <h1
+            class="text-4xl md:text-6xl font-bangers mb-6 animate-fade-in-down comic-title text-center"
+          >
+            Testing Videos
+          </h1>
+          <div
+            class="speech-bubble text-black text-xl mb-8 animate-fade-in-up delay-200 text-center"
+          >
+            Watch our usability testing sessions and prototype demonstrations in
+            action!
+          </div>
         </div>
       </header>
 
-      <!-- Consent Process Section -->
-      <section class="py-12 bg-white">
+      <!-- Videos Section -->
+      <section
+        class="py-12 bg-gradient-to-br from-[#f2a33c]/10 to-[#184085]/10"
+      >
         <div class="container mx-auto px-4">
-          <div class="max-w-4xl mx-auto">
-            <h2 class="text-2xl font-bangers text-[#184085] mb-8">
-              Consent Process
-            </h2>
-            <div class="bg-gray-50 rounded-lg p-6 shadow-md">
-              <p class="mb-4">
-                All participants were required to provide informed consent
-                before participating in the usability testing sessions. The
-                consent process included:
-              </p>
-              <ul class="list-disc list-inside space-y-2 text-gray-700">
-                <li>Detailed explanation of the testing process</li>
-                <li>Information about video recording and data collection</li>
-                <li>Confidentiality agreements</li>
-                <li>Participant rights and withdrawal options</li>
-                <li>Signed consent forms</li>
-              </ul>
-              <div class="mt-6 p-4 bg-white rounded-lg border border-gray-200">
-                <h3 class="text-lg font-semibold text-[#184085] mb-2">
-                  Consent Form Highlights
-                </h3>
-                <ul class="list-disc list-inside space-y-2 text-gray-700">
-                  <li>
-                    Participants were informed about the purpose of the study
-                  </li>
-                  <li>Clear explanation of data usage and storage</li>
-                  <li>Option to withdraw at any time</li>
-                  <li>Confidentiality of personal information</li>
-                </ul>
+          <div class="max-w-4xl mx-auto space-y-12">
+            <!-- Usability Testing Video -->
+            <div class="video-panel comic-panel animate-fade-in-up">
+              <div class="p-6">
+                <h2
+                  class="text-2xl font-bangers text-[#f2a33c] mb-4 comic-title"
+                >
+                  Usability Testing Session
+                </h2>
+                <div class="aspect-w-16 aspect-h-9 mb-4">
+                  <iframe
+                    class="w-full h-[400px] rounded-lg shadow-lg"
+                    src="https://www.youtube.com/embed/BqmCbT4CLNA"
+                    title="Usability Testing Video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div class="speech-bubble text-black">
+                  <p class="text-lg">
+                    Watch our comprehensive usability testing session where we
+                    evaluate the VolunTrack application with real users.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Prototype Demo Video -->
+            <div class="video-panel comic-panel animate-fade-in-up delay-200">
+              <div class="p-6">
+                <h2
+                  class="text-2xl font-bangers text-[#f2a33c] mb-4 comic-title"
+                >
+                  Prototype Demonstration
+                </h2>
+                <div class="aspect-w-16 aspect-h-9 mb-4">
+                  <iframe
+                    class="w-full h-[400px] rounded-lg shadow-lg"
+                    src="https://www.youtube.com/embed/CIkIK1IqNdQ"
+                    title="Prototype Demo Video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div class="speech-bubble text-black">
+                  <p class="text-lg">
+                    Experience a detailed walkthrough of the VolunTrack
+                    prototype, showcasing its key features and functionality.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Videos Section -->
-      <section class="py-12 bg-gray-50 min-h-[60vh]">
+      <!-- Footer -->
+      <footer class="bg-[#184085] text-white py-8 w-full comic-panel">
         <div class="container mx-auto px-4">
-          <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl font-bangers text-[#184085] text-center mb-10">
-              Project Videos
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-              <!-- Prototype Video -->
-              <div
-                class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center"
-              >
-                <h3 class="text-xl font-bangers text-[#184085] mb-4">
-                  Prototype Demo
-                </h3>
-                <video
-                  controls
-                  poster="../../public/assets/images/logo.png"
-                  class="rounded-lg w-full max-w-xs mb-2"
-                >
-                  <source
-                    src="../../public/assets/videos/prototype-demo.mp4"
-                    type="video/mp4"
-                  />
-                  Your browser does not support the video tag.
-                </video>
-                <p class="text-gray-600 text-center text-sm">
-                  A walkthrough of how to use the VolunTrack application.
-                </p>
-              </div>
-              <!-- Usability Testing Video -->
-              <div
-                class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center"
-              >
-                <h3 class="text-xl font-bangers text-[#184085] mb-4">
-                  Usability Testing
-                </h3>
-                <video
-                  controls
-                  poster="../../public/assets/images/logo.png"
-                  class="rounded-lg w-full max-w-xs mb-2"
-                >
-                  <source
-                    src="../../public/assets/videos/usability-testing.mp4"
-                    type="video/mp4"
-                  />
-                  Your browser does not support the video tag.
-                </video>
-                <p class="text-gray-600 text-center text-sm">
-                  Watch the interviews and usability testing sessions with real
-                  users.
-                </p>
-              </div>
-            </div>
+          <div class="text-center">
+            <p class="mb-2 font-bangers text-xl">
+              © 2024 VolunTrack Usability Testing Project
+            </p>
+            <p class="text-sm text-black speech-bubble">
+              A comprehensive evaluation of user experience and interface design
+            </p>
           </div>
         </div>
-      </section>
+      </footer>
     </div>
 
-    <main class="flex-1"></main>
-    <footer class="bg-[#184085] text-white py-8 w-full">
-      <div class="container mx-auto px-4">
-        <div class="text-center">
-          <p class="mb-2">© 2024 VolunTrack Usability Testing Project</p>
-          <p class="text-sm text-gray-300">
-            A comprehensive evaluation of user experience and interface design
-          </p>
-        </div>
-      </div>
-    </footer>
-
     <script src="../../src/scripts/main.js"></script>
-    <style>
-      .font-bangers {
-        font-family: "Bangers", cursive;
+    <script>
+      // Initialize GSAP
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Animate elements on scroll
+      gsap.utils.toArray(".comic-panel").forEach((panel) => {
+        gsap.from(panel, {
+          scrollTrigger: {
+            trigger: panel,
+            start: "top bottom-=100",
+            toggleActions: "play none none reverse",
+          },
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+        });
+      });
+
+      // Mobile Menu Functionality
+      const mobileMenuButton = document.querySelector(".mobile-menu-button");
+      const mobileMenu = document.querySelector(".mobile-menu");
+      const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
+      let isMenuOpen = false;
+
+      function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        mobileMenu.classList.toggle("-translate-x-full");
+        mobileMenuOverlay.classList.toggle("hidden");
+
+        // Add comic book effect to menu items
+        if (isMenuOpen) {
+          gsap.from(".mobile-menu a", {
+            x: -50,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "back.out(1.7)",
+          });
+        }
       }
-    </style>
+
+      mobileMenuButton.addEventListener("click", toggleMenu);
+      mobileMenuOverlay.addEventListener("click", toggleMenu);
+
+      // Add hover effects to video panels
+      document.querySelectorAll(".video-panel").forEach((panel) => {
+        panel.addEventListener("mouseenter", () => {
+          gsap.to(panel, {
+            y: -10,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        });
+        panel.addEventListener("mouseleave", () => {
+          gsap.to(panel, {
+            y: 0,
+            duration: 0.3,
+            ease: "power2.in",
+          });
+        });
+      });
+    </script>
   </body>
 </html>

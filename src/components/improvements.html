@@ -5,26 +5,251 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Improvements - VolunTrack Usability Testing</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&family=Comic+Neue:wght@400;700&family=Creepster&display=swap"
       rel="stylesheet"
     />
     <link href="https://fonts.cdnfonts.com/css/intro-rust" rel="stylesheet" />
     <link href="../../public/output.css" rel="stylesheet" />
+    <!-- Comic Book Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+      /* Comic Book Base Styles */
+      :root {
+        --comic-primary: #184085;
+        --comic-secondary: #f2a33c;
+        --comic-accent: #ff4d4d;
+        --comic-text: #333333;
+        --comic-bg: #ffffff;
+      }
+
+      body {
+        background-color: var(--comic-bg);
+        font-family: "Comic Neue", cursive;
+      }
+
+      /* Comic Panel Styles */
+      .comic-panel {
+        border: 4px solid var(--comic-text);
+        border-radius: 8px;
+        box-shadow: 4px 4px 0 var(--comic-text);
+        background: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Speech Bubble Styles */
+      .speech-bubble {
+        position: relative;
+        background: white;
+        border: 3px solid var(--comic-text);
+        border-radius: 20px;
+        padding: 15px;
+        margin: 20px;
+      }
+
+      .speech-bubble::before {
+        content: "";
+        position: absolute;
+        bottom: -20px;
+        left: 20px;
+        border-width: 20px 20px 0;
+        border-style: solid;
+        border-color: white transparent;
+      }
+
+      .speech-bubble::after {
+        content: "";
+        position: absolute;
+        bottom: -23px;
+        left: 20px;
+        border-width: 20px 20px 0;
+        border-style: solid;
+        border-color: var(--comic-text) transparent;
+      }
+
+      /* Comic Navigation */
+      .comic-nav {
+        background: var(--comic-primary);
+        border-bottom: 4px solid var(--comic-text);
+        box-shadow: 0 4px 0 var(--comic-text);
+      }
+
+      .comic-nav a {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .comic-nav a:hover {
+        transform: translateY(-2px);
+      }
+
+      .comic-nav a::after {
+        content: "POW!";
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Creepster", cursive;
+        color: var(--comic-accent);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .comic-nav a:hover::after {
+        opacity: 1;
+        top: -30px;
+      }
+
+      /* Mobile Menu Overlay */
+      .mobile-menu-overlay {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      .mobile-menu {
+        border-right: 4px solid var(--comic-text);
+        box-shadow: 4px 0 0 var(--comic-text);
+      }
+
+      /* Improvement Card Styles */
+      .improvement-card {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .improvement-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .improvement-card::before {
+        content: "💪";
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background: var(--comic-accent);
+        color: white;
+        padding: 5px 10px;
+        border: 2px solid var(--comic-text);
+        border-radius: 4px;
+        font-family: "Bangers", cursive;
+        transform: rotate(15deg);
+        z-index: 2;
+      }
+
+      /* Action Lines */
+      .action-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(255, 77, 77, 0.1) 10px,
+          rgba(255, 77, 77, 0.1) 20px
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* Comic Title Styles */
+      .comic-title {
+        font-family: "Bangers", cursive;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 3px 3px 0 var(--comic-text);
+        position: relative;
+        display: inline-block;
+      }
+
+      /* Timeline Styles */
+      .timeline-item {
+        position: relative;
+        padding-left: 60px;
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: 20px;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: var(--comic-text);
+        border-radius: 2px;
+      }
+
+      .timeline-number {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 40px;
+        height: 40px;
+        background: var(--comic-primary);
+        border: 3px solid var(--comic-text);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Bangers", cursive;
+        color: white;
+        font-size: 1.5em;
+        z-index: 2;
+      }
+
+      /* Custom Animations */
+      @keyframes fade-in-down {
+        0% {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-down {
+        animation: fade-in-down 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      @keyframes fade-in-up {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-up {
+        animation: fade-in-up 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      .delay-200 {
+        animation-delay: 0.2s;
+      }
+      .font-bangers {
+        font-family: "Bangers", cursive;
+      }
+    </style>
   </head>
   <body class="bg-gray-50 font-['Poppins'] min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav
-      class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30 fixed w-full top-0 z-50"
-    >
+    <nav class="comic-nav text-white shadow-lg fixed w-full top-0 z-50">
       <div class="container mx-auto px-4 py-3">
         <div class="flex justify-between items-center">
           <div class="flex items-center space-x-3">
             <img
               src="../../public/assets/images/logo.png"
               alt="VolunTrack Logo"
-              class="h-10 w-10 md:h-12 md:w-12 object-contain"
+              class="h-10 w-10 md:h-12 md:w-12 object-contain comic-panel"
             />
-            <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+            <div class="text-2xl font-bangers tracking-wide comic-title">
+              VolunTrack
+            </div>
           </div>
           <!-- Desktop Navigation -->
           <div class="hidden md:flex space-x-6">
@@ -71,7 +296,7 @@
           </div>
           <!-- Mobile menu button -->
           <button
-            class="md:hidden mobile-menu-button text-[#184085] focus:outline-none"
+            class="md:hidden mobile-menu-button text-white focus:outline-none comic-button"
           >
             <svg
               class="w-6 h-6"
@@ -93,7 +318,7 @@
 
     <!-- Mobile Menu Overlay -->
     <div
-      class="mobile-menu-overlay fixed inset-0 bg-transparent z-40 hidden"
+      class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-40 hidden"
     ></div>
 
     <!-- Mobile Menu -->
@@ -105,50 +330,52 @@
           <img
             src="../../public/assets/images/logo.png"
             alt="VolunTrack Logo"
-            class="h-10 w-10 object-contain"
+            class="h-10 w-10 object-contain comic-panel"
           />
-          <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+          <div class="text-2xl font-bangers tracking-wide comic-title">
+            VolunTrack
+          </div>
         </div>
       </div>
       <div class="p-4 space-y-4">
         <a
           href="../../index.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Home</a
         >
         <a
           href="participants.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Participants</a
         >
         <a
           href="tasks.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Tasks</a
         >
         <a
           href="results.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Results</a
         >
         <a
           href="decide.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >DECIDE</a
         >
         <a
           href="videos.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Videos</a
         >
         <a
           href="improvements.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Improvements</a
         >
         <a
           href="poster.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Poster</a
         >
       </div>
@@ -158,133 +385,82 @@
     <div class="pt-16">
       <!-- Header -->
       <header
-        class="bg-gradient-to-r from-[#184085] to-[#1a4a9c] text-white py-12"
+        class="relative text-white py-20 overflow-hidden comic-panel"
+        style="
+          background: linear-gradient(
+              120deg,
+              rgba(24, 64, 133, 0.85) 60%,
+              rgba(242, 163, 60, 0.7)
+            ),
+            url('../../public/assets/images/hero-bg.png') center/cover no-repeat;
+        "
       >
+        <div class="action-lines"></div>
         <div class="container mx-auto px-4">
-          <h1 class="text-4xl font-bangers text-center mb-4">
-            Suggested Improvements
+          <h1
+            class="text-4xl md:text-6xl font-bangers mb-6 animate-fade-in-down comic-title text-center"
+          >
+            Prototype Improvements
           </h1>
-          <p class="text-center text-lg max-w-3xl mx-auto">
-            Based on user feedback and testing results, here are the recommended
-            improvements for VolunTrack.
-          </p>
+          <div
+            class="speech-bubble text-black text-xl mb-8 animate-fade-in-up delay-200 text-center"
+          >
+            Transforming VolunTrack into an amazing app with these epic
+            improvements!
+          </div>
         </div>
       </header>
 
       <!-- Feedback Summary -->
-      <section class="py-12 bg-white">
+      <section
+        class="py-12 bg-gradient-to-br from-[#f2a33c]/10 to-[#184085]/10"
+      >
         <div class="container mx-auto px-4">
           <div class="max-w-4xl mx-auto">
-            <h2 class="text-2xl font-bangers text-[#184085] mb-8">
+            <h2
+              class="text-3xl font-bangers text-[#f2a33c] mb-8 comic-title text-center"
+            >
               Key Feedback Points
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div class="bg-gray-50 rounded-lg p-6 shadow-md">
-                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+              <div class="comic-panel p-6 animate-fade-in-up">
+                <h3
+                  class="text-xl font-bangers text-[#f2a33c] mb-4 comic-title"
+                >
                   Interface Issues
                 </h3>
                 <ul class="space-y-3 text-gray-700">
-                  <li class="flex items-start">
-                    <svg
-                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                      ></path>
-                    </svg>
+                  <li class="flex items-start speech-bubble">
+                    <span class="mr-2">🎯</span>
                     <span>Blurry map resolution affecting usability</span>
                   </li>
-                  <li class="flex items-start">
-                    <svg
-                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                      ></path>
-                    </svg>
+                  <li class="flex items-start speech-bubble">
+                    <span class="mr-2">🎯</span>
                     <span>Small navigation bar and icons</span>
                   </li>
-                  <li class="flex items-start">
-                    <svg
-                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                      ></path>
-                    </svg>
+                  <li class="flex items-start speech-bubble">
+                    <span class="mr-2">🎯</span>
                     <span>Limited information display</span>
                   </li>
                 </ul>
               </div>
-              <div class="bg-gray-50 rounded-lg p-6 shadow-md">
-                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+              <div class="comic-panel p-6 animate-fade-in-up delay-200">
+                <h3
+                  class="text-xl font-bangers text-[#f2a33c] mb-4 comic-title"
+                >
                   User Experience
                 </h3>
                 <ul class="space-y-3 text-gray-700">
-                  <li class="flex items-start">
-                    <svg
-                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                      ></path>
-                    </svg>
+                  <li class="flex items-start speech-bubble">
+                    <span class="mr-2">🎯</span>
                     <span>Need for better onboarding experience</span>
                   </li>
-                  <li class="flex items-start">
-                    <svg
-                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                      ></path>
-                    </svg>
+                  <li class="flex items-start speech-bubble">
+                    <span class="mr-2">🎯</span>
                     <span>Unintuitive button placement</span>
                   </li>
-                  <li class="flex items-start">
-                    <svg
-                      class="w-5 h-5 text-[#f2a33c] mt-1 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                      ></path>
-                    </svg>
+                  <li class="flex items-start speech-bubble">
+                    <span class="mr-2">🎯</span>
                     <span>Complex approval interface</span>
                   </li>
                 </ul>
@@ -295,22 +471,26 @@
       </section>
 
       <!-- Recommended Improvements -->
-      <section class="py-12 bg-gray-50">
+      <section
+        class="py-12 bg-gradient-to-br from-[#184085]/10 to-[#f2a33c]/10"
+      >
         <div class="container mx-auto px-4">
           <div class="max-w-4xl mx-auto">
-            <h2 class="text-2xl font-['Intro_Rust'] text-[#184085] mb-8">
-              Recommended Improvements
+            <h2
+              class="text-3xl font-bangers text-[#f2a33c] mb-8 comic-title text-center"
+            >
+              Prototype Improvements
             </h2>
             <div class="space-y-6">
               <!-- Map Improvements -->
-              <div
-                class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform"
-              >
-                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+              <div class="improvement-card comic-panel p-6 animate-fade-in-up">
+                <h3
+                  class="text-xl font-bangers text-[#f2a33c] mb-4 comic-title"
+                >
                   Map Enhancement
                 </h3>
                 <div class="space-y-3 text-gray-700">
-                  <p>
+                  <p class="speech-bubble">
                     Improve map resolution and add clear markers with tooltips:
                   </p>
                   <ul class="list-disc list-inside space-y-2">
@@ -324,13 +504,17 @@
 
               <!-- UI Improvements -->
               <div
-                class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform"
+                class="improvement-card comic-panel p-6 animate-fade-in-up delay-200"
               >
-                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                <h3
+                  class="text-xl font-bangers text-[#f2a33c] mb-4 comic-title"
+                >
                   Interface Updates
                 </h3>
                 <div class="space-y-3 text-gray-700">
-                  <p>Enhance visual elements and navigation:</p>
+                  <p class="speech-bubble">
+                    Enhance visual elements and navigation:
+                  </p>
                   <ul class="list-disc list-inside space-y-2">
                     <li>Increase font size and improve contrast</li>
                     <li>Enlarge navigation bar and icons</li>
@@ -341,14 +525,16 @@
               </div>
 
               <!-- Approval Process -->
-              <div
-                class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform"
-              >
-                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+              <div class="improvement-card comic-panel p-6 animate-fade-in-up">
+                <h3
+                  class="text-xl font-bangers text-[#f2a33c] mb-4 comic-title"
+                >
                   Streamlined Approval Process
                 </h3>
                 <div class="space-y-3 text-gray-700">
-                  <p>Simplify the volunteer request approval interface:</p>
+                  <p class="speech-bubble">
+                    Simplify the volunteer request approval interface:
+                  </p>
                   <ul class="list-disc list-inside space-y-2">
                     <li>Implement a more intuitive approval workflow</li>
                     <li>Add visual indicators for pending requests</li>
@@ -360,13 +546,17 @@
 
               <!-- Onboarding Experience -->
               <div
-                class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform"
+                class="improvement-card comic-panel p-6 animate-fade-in-up delay-200"
               >
-                <h3 class="text-xl font-semibold text-[#184085] mb-4">
+                <h3
+                  class="text-xl font-bangers text-[#f2a33c] mb-4 comic-title"
+                >
                   Enhanced Onboarding
                 </h3>
                 <div class="space-y-3 text-gray-700">
-                  <p>Create a comprehensive tutorial experience:</p>
+                  <p class="speech-bubble">
+                    Create a comprehensive tutorial experience:
+                  </p>
                   <ul class="list-disc list-inside space-y-2">
                     <li>Develop interactive walkthroughs</li>
                     <li>Add contextual help tooltips</li>
@@ -381,22 +571,22 @@
       </section>
 
       <!-- Implementation Timeline -->
-      <section class="py-12 bg-white">
+      <section
+        class="py-12 bg-gradient-to-br from-[#f2a33c]/10 to-[#184085]/10"
+      >
         <div class="container mx-auto px-4">
           <div class="max-w-4xl mx-auto">
-            <h2 class="text-2xl font-['Intro_Rust'] text-[#184085] mb-8">
-              Implementation Timeline
+            <h2
+              class="text-3xl font-bangers text-[#f2a33c] mb-8 comic-title text-center"
+            >
+              App Timeline
             </h2>
-            <div class="bg-gray-50 rounded-lg p-6 shadow-md">
-              <div class="space-y-6">
-                <div class="flex items-start">
-                  <div
-                    class="flex-shrink-0 w-12 h-12 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
-                  >
-                    1
-                  </div>
-                  <div class="ml-4">
-                    <h3 class="text-lg font-semibold text-[#184085]">
+            <div class="comic-panel p-6">
+              <div class="space-y-8">
+                <div class="timeline-item animate-fade-in-up">
+                  <div class="timeline-number">1</div>
+                  <div class="speech-bubble">
+                    <h3 class="text-lg font-bangers text-[#184085]">
                       Phase 1: UI Updates
                     </h3>
                     <p class="text-gray-600 mt-1">
@@ -405,14 +595,10 @@
                     </p>
                   </div>
                 </div>
-                <div class="flex items-start">
-                  <div
-                    class="flex-shrink-0 w-12 h-12 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
-                  >
-                    2
-                  </div>
-                  <div class="ml-4">
-                    <h3 class="text-lg font-semibold text-[#184085]">
+                <div class="timeline-item animate-fade-in-up delay-200">
+                  <div class="timeline-number">2</div>
+                  <div class="speech-bubble">
+                    <h3 class="text-lg font-bangers text-[#184085]">
                       Phase 2: Map Enhancement
                     </h3>
                     <p class="text-gray-600 mt-1">
@@ -420,14 +606,10 @@
                     </p>
                   </div>
                 </div>
-                <div class="flex items-start">
-                  <div
-                    class="flex-shrink-0 w-12 h-12 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
-                  >
-                    3
-                  </div>
-                  <div class="ml-4">
-                    <h3 class="text-lg font-semibold text-[#184085]">
+                <div class="timeline-item animate-fade-in-up">
+                  <div class="timeline-number">3</div>
+                  <div class="speech-bubble">
+                    <h3 class="text-lg font-bangers text-[#184085]">
                       Phase 3: Process Improvements
                     </h3>
                     <p class="text-gray-600 mt-1">
@@ -435,14 +617,10 @@
                     </p>
                   </div>
                 </div>
-                <div class="flex items-start">
-                  <div
-                    class="flex-shrink-0 w-12 h-12 bg-[#184085] rounded-full flex items-center justify-center text-white font-semibold"
-                  >
-                    4
-                  </div>
-                  <div class="ml-4">
-                    <h3 class="text-lg font-semibold text-[#184085]">
+                <div class="timeline-item animate-fade-in-up delay-200">
+                  <div class="timeline-number">4</div>
+                  <div class="speech-bubble">
+                    <h3 class="text-lg font-bangers text-[#184085]">
                       Phase 4: Onboarding
                     </h3>
                     <p class="text-gray-600 mt-1">
@@ -457,12 +635,14 @@
       </section>
     </div>
 
-    <main class="flex-1"></main>
-    <footer class="bg-[#184085] text-white py-8 w-full">
+    <!-- Footer -->
+    <footer class="bg-[#184085] text-white py-8 w-full comic-panel">
       <div class="container mx-auto px-4">
         <div class="text-center">
-          <p class="mb-2">© 2024 VolunTrack Usability Testing Project</p>
-          <p class="text-sm text-gray-300">
+          <p class="mb-2 font-bangers text-xl">
+            © 2024 VolunTrack Usability Testing Project
+          </p>
+          <p class="text-sm text-black speech-bubble">
             A comprehensive evaluation of user experience and interface design
           </p>
         </div>
@@ -470,10 +650,68 @@
     </footer>
 
     <script src="../../src/scripts/main.js"></script>
-    <style>
-      .font-bangers {
-        font-family: "Bangers", cursive;
+    <script>
+      // Initialize GSAP
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Animate elements on scroll
+      gsap.utils.toArray(".comic-panel").forEach((panel) => {
+        gsap.from(panel, {
+          scrollTrigger: {
+            trigger: panel,
+            start: "top bottom-=100",
+            toggleActions: "play none none reverse",
+          },
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+        });
+      });
+
+      // Mobile Menu Functionality
+      const mobileMenuButton = document.querySelector(".mobile-menu-button");
+      const mobileMenu = document.querySelector(".mobile-menu");
+      const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
+      let isMenuOpen = false;
+
+      function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        mobileMenu.classList.toggle("-translate-x-full");
+        mobileMenuOverlay.classList.toggle("hidden");
+
+        // Add comic book effect to menu items
+        if (isMenuOpen) {
+          gsap.from(".mobile-menu a", {
+            x: -50,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "back.out(1.7)",
+          });
+        }
       }
-    </style>
+
+      mobileMenuButton.addEventListener("click", toggleMenu);
+      mobileMenuOverlay.addEventListener("click", toggleMenu);
+
+      // Add hover effects to improvement cards
+      document.querySelectorAll(".improvement-card").forEach((card) => {
+        card.addEventListener("mouseenter", () => {
+          gsap.to(card, {
+            y: -10,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        });
+        card.addEventListener("mouseleave", () => {
+          gsap.to(card, {
+            y: 0,
+            duration: 0.3,
+            ease: "power2.in",
+          });
+        });
+      });
+    </script>
   </body>
 </html>

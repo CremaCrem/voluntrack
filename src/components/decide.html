@@ -5,26 +5,421 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DECIDE Framework - VolunTrack Usability Testing</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&family=Comic+Neue:wght@400;700&family=Creepster&display=swap"
       rel="stylesheet"
     />
     <link href="https://fonts.cdnfonts.com/css/intro-rust" rel="stylesheet" />
     <link href="../../public/output.css" rel="stylesheet" />
+    <!-- Comic Book Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+      /* Comic Book Base Styles */
+      :root {
+        --comic-primary: #184085;
+        --comic-secondary: #f2a33c;
+        --comic-accent: #ff4d4d;
+        --comic-text: #333333;
+        --comic-bg: #ffffff;
+      }
+
+      body {
+        background-color: var(--comic-bg);
+        font-family: "Comic Neue", cursive;
+      }
+
+      /* Comic Panel Styles */
+      .comic-panel {
+        border: 4px solid var(--comic-text);
+        border-radius: 8px;
+        box-shadow: 4px 4px 0 var(--comic-text);
+        background: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .comic-panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: radial-gradient(
+          circle at 1px 1px,
+          rgba(0, 0, 0, 0.1) 2px,
+          transparent 0
+        );
+        background-size: 20px 20px;
+        pointer-events: none;
+      }
+
+      /* Speech Bubble Styles */
+      .speech-bubble {
+        position: relative;
+        background: white;
+        border: 3px solid var(--comic-text);
+        border-radius: 20px;
+        padding: 15px;
+        margin: 20px;
+      }
+
+      .speech-bubble::before {
+        content: "";
+        position: absolute;
+        bottom: -20px;
+        left: 20px;
+        border-width: 20px 20px 0;
+        border-style: solid;
+        border-color: white transparent;
+      }
+
+      .speech-bubble::after {
+        content: "";
+        position: absolute;
+        bottom: -23px;
+        left: 20px;
+        border-width: 20px 20px 0;
+        border-style: solid;
+        border-color: var(--comic-text) transparent;
+      }
+
+      /* Comic Navigation */
+      .comic-nav {
+        background: var(--comic-primary);
+        border-bottom: 4px solid var(--comic-text);
+        box-shadow: 0 4px 0 var(--comic-text);
+      }
+
+      .comic-nav a {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .comic-nav a:hover {
+        transform: translateY(-2px);
+      }
+
+      .comic-nav a::after {
+        content: "POW!";
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Creepster", cursive;
+        color: var(--comic-accent);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .comic-nav a:hover::after {
+        opacity: 1;
+        top: -30px;
+      }
+
+      /* Mobile Menu Overlay */
+      .mobile-menu-overlay {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      .mobile-menu {
+        border-right: 4px solid var(--comic-text);
+        box-shadow: 4px 0 0 var(--comic-text);
+      }
+
+      /* Comic Button Styles */
+      .comic-button {
+        position: relative;
+        background: var(--comic-secondary);
+        border: 3px solid var(--comic-text);
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-family: "Bangers", cursive;
+        font-size: 1.2em;
+        color: var(--comic-text);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transform: translateY(0);
+        transition: all 0.2s ease;
+      }
+
+      .comic-button:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 0 var(--comic-text);
+      }
+
+      .comic-button:active {
+        transform: translateY(0);
+        box-shadow: none;
+      }
+
+      /* Comic Title Styles */
+      .comic-title {
+        font-family: "Bangers", cursive;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 3px 3px 0 var(--comic-text);
+        position: relative;
+        display: inline-block;
+      }
+
+      .comic-title::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        background: var(--comic-accent);
+        z-index: -1;
+        transform: rotate(-2deg);
+      }
+
+      /* Custom Animations */
+      @keyframes fade-in-down {
+        0% {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-down {
+        animation: fade-in-down 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      @keyframes fade-in-up {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-up {
+        animation: fade-in-up 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      .delay-200 {
+        animation-delay: 0.2s;
+      }
+      @keyframes bounce-slow {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+      .animate-bounce-slow {
+        animation: bounce-slow 2s infinite;
+      }
+      @keyframes float-slow {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      .animate-float-slow {
+        animation: float-slow 6s ease-in-out infinite;
+      }
+      @keyframes float-medium {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-18px);
+        }
+      }
+      .animate-float-medium {
+        animation: float-medium 8s ease-in-out infinite;
+      }
+      @keyframes float-fast {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-30px);
+        }
+      }
+      .animate-float-fast {
+        animation: float-fast 4s ease-in-out infinite;
+      }
+      .font-bangers {
+        font-family: "Bangers", cursive;
+      }
+
+      /* Action Lines */
+      .action-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(255, 77, 77, 0.1) 10px,
+          rgba(255, 77, 77, 0.1) 20px
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* DECIDE Panel Styles */
+      .decide-panel {
+        background: white;
+        border: 4px solid var(--comic-text);
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 4px 4px 0 var(--comic-text);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .decide-panel:hover {
+        transform: translateY(-5px);
+        box-shadow: 8px 8px 0 var(--comic-text);
+      }
+
+      .decide-panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: radial-gradient(
+          circle at 1px 1px,
+          rgba(0, 0, 0, 0.1) 2px,
+          transparent 0
+        );
+        background-size: 20px 20px;
+        pointer-events: none;
+      }
+
+      .decide-panel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        padding: 10px;
+        background: var(--comic-primary);
+        color: white;
+        border-radius: 4px;
+        margin: -20px -20px 20px -20px;
+      }
+
+      .decide-panel-content {
+        padding: 20px;
+        background: white;
+        border-radius: 4px;
+        margin-top: 10px;
+      }
+
+      .decide-panel-icon {
+        transition: transform 0.3s ease;
+      }
+
+      .decide-panel-icon.rotated {
+        transform: rotate(180deg);
+      }
+
+      /* Superhero Theme Elements */
+      .superhero-badge {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background: var(--comic-accent);
+        color: white;
+        padding: 5px 10px;
+        border: 2px solid var(--comic-text);
+        border-radius: 4px;
+        font-family: "Bangers", cursive;
+        transform: rotate(15deg);
+        z-index: 2;
+      }
+
+      .power-meter {
+        height: 4px;
+        background: var(--comic-secondary);
+        border: 2px solid var(--comic-text);
+        border-radius: 2px;
+        margin: 10px 0;
+        overflow: hidden;
+      }
+
+      .power-meter-fill {
+        height: 100%;
+        background: var(--comic-accent);
+        width: 0;
+        transition: width 1s ease;
+      }
+
+      /* Comic List Styles */
+      .comic-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .comic-list-item {
+        position: relative;
+        padding: 10px 15px;
+        margin: 5px 0;
+        background: white;
+        border: 2px solid var(--comic-text);
+        border-radius: 4px;
+        transform: translateX(0);
+        transition: all 0.3s ease;
+      }
+
+      .comic-list-item:hover {
+        transform: translateX(10px);
+        background: var(--comic-secondary);
+        color: white;
+      }
+
+      .comic-list-item::before {
+        content: "💥";
+        position: absolute;
+        left: -20px;
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .comic-list-item:hover::before {
+        opacity: 1;
+        left: -30px;
+      }
+    </style>
   </head>
   <body class="bg-gray-50 font-['Poppins'] min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav
-      class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30 fixed w-full top-0 z-50"
-    >
+    <nav class="comic-nav text-white shadow-lg fixed w-full top-0 z-50">
       <div class="container mx-auto px-4 py-3">
         <div class="flex justify-between items-center">
           <div class="flex items-center space-x-3">
             <img
               src="../../public/assets/images/logo.png"
               alt="VolunTrack Logo"
-              class="h-10 w-10 md:h-12 md:w-12 object-contain"
+              class="h-10 w-10 md:h-12 md:w-12 object-contain comic-panel"
             />
-            <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+            <div class="text-2xl font-bangers tracking-wide comic-title">
+              VolunTrack
+            </div>
           </div>
           <!-- Desktop Navigation -->
           <div class="hidden md:flex space-x-6">
@@ -71,7 +466,7 @@
           </div>
           <!-- Mobile menu button -->
           <button
-            class="md:hidden mobile-menu-button text-[#184085] focus:outline-none"
+            class="md:hidden mobile-menu-button text-white focus:outline-none comic-button"
           >
             <svg
               class="w-6 h-6"
@@ -93,7 +488,7 @@
 
     <!-- Mobile Menu Overlay -->
     <div
-      class="mobile-menu-overlay fixed inset-0 bg-transparent z-40 hidden"
+      class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-40 hidden"
     ></div>
 
     <!-- Mobile Menu -->
@@ -105,50 +500,52 @@
           <img
             src="../../public/assets/images/logo.png"
             alt="VolunTrack Logo"
-            class="h-10 w-10 object-contain"
+            class="h-10 w-10 object-contain comic-panel"
           />
-          <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+          <div class="text-2xl font-bangers tracking-wide comic-title">
+            VolunTrack
+          </div>
         </div>
       </div>
       <div class="p-4 space-y-4">
         <a
           href="../../index.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Home</a
         >
         <a
           href="participants.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Participants</a
         >
         <a
           href="tasks.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Tasks</a
         >
         <a
           href="results.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Results</a
         >
         <a
           href="decide.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >DECIDE</a
         >
         <a
           href="videos.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Videos</a
         >
         <a
           href="improvements.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Improvements</a
         >
         <a
           href="poster.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Poster</a
         >
       </div>
@@ -158,249 +555,299 @@
     <div class="pt-16">
       <!-- Header -->
       <header
-        class="bg-gradient-to-r from-[#184085] to-[#1a4a9c] text-white py-12"
+        class="relative text-white py-20 overflow-hidden comic-panel"
+        style="
+          background: linear-gradient(
+              120deg,
+              rgba(24, 64, 133, 0.85) 60%,
+              rgba(242, 163, 60, 0.7)
+            ),
+            url('../../public/assets/images/hero-bg.png') center/cover no-repeat;
+        "
       >
+        <div class="action-lines"></div>
         <div class="container mx-auto px-4">
-          <h1 class="text-4xl font-bangers text-center mb-4">
+          <h1
+            class="text-4xl md:text-6xl font-bangers mb-6 animate-fade-in-down comic-title text-center"
+          >
             DECIDE Framework
           </h1>
-          <p class="text-center text-lg max-w-3xl mx-auto">
+          <div
+            class="speech-bubble text-black text-xl mb-8 animate-fade-in-up delay-200 text-center"
+          >
             Understanding our methodology for conducting the VolunTrack
             usability testing.
-          </p>
+          </div>
         </div>
       </header>
 
       <!-- DECIDE Framework Section -->
-      <section class="py-12 bg-gray-50">
+      <section
+        class="py-12 bg-gradient-to-br from-[#f2a33c]/10 to-[#184085]/10"
+      >
         <div class="container mx-auto px-4">
           <div class="max-w-4xl mx-auto space-y-8">
             <!-- Determine Goals -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div class="p-6">
-                <div
-                  class="flex justify-between items-center cursor-pointer"
-                  onclick="togglePanel('goals')"
+            <div class="decide-panel animate-fade-in-up">
+              <div class="superhero-badge">D</div>
+              <div class="decide-panel-header" onclick="togglePanel('goals')">
+                <h2 class="text-2xl font-bangers text-white">
+                  Determine the Goals
+                </h2>
+                <svg
+                  class="w-6 h-6 text-white decide-panel-icon"
+                  id="goals-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <h2 class="text-2xl font-['Intro_Rust'] text-[#184085]">
-                    D: Determine the Goals
-                  </h2>
-                  <svg
-                    class="w-6 h-6 text-[#184085] transform transition-transform"
-                    id="goals-icon"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
-                  </svg>
-                </div>
-                <div class="mt-4 text-gray-600" id="goals-content">
-                  <ul class="list-disc list-inside space-y-2">
-                    <li>
-                      Evaluate the overall usability of the VolunTrack
-                      application
-                    </li>
-                    <li>
-                      Identify potential issues in the user interface and
-                      experience
-                    </li>
-                    <li>Measure task completion times and user satisfaction</li>
-                    <li>Gather feedback for future improvements</li>
-                  </ul>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </div>
+              <div class="decide-panel-content" id="goals-content">
+                <ul class="comic-list">
+                  <li class="comic-list-item">
+                    Evaluate the overall usability of the VolunTrack application
+                  </li>
+                  <li class="comic-list-item">
+                    Identify potential issues in the user interface and
+                    experience
+                  </li>
+                  <li class="comic-list-item">
+                    Measure task completion times and user satisfaction
+                  </li>
+                  <li class="comic-list-item">
+                    Gather feedback for future improvements
+                  </li>
+                </ul>
+                <div class="power-meter mt-4">
+                  <div class="power-meter-fill" style="width: 85%"></div>
                 </div>
               </div>
             </div>
 
             <!-- Explore Questions -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div class="p-6">
-                <div
-                  class="flex justify-between items-center cursor-pointer"
-                  onclick="togglePanel('questions')"
+            <div class="decide-panel animate-fade-in-up delay-200">
+              <div class="superhero-badge">E</div>
+              <div
+                class="decide-panel-header"
+                onclick="togglePanel('questions')"
+              >
+                <h2 class="text-2xl font-bangers text-white">
+                  Explore the Questions
+                </h2>
+                <svg
+                  class="w-6 h-6 text-white decide-panel-icon"
+                  id="questions-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <h2 class="text-2xl font-['Intro_Rust'] text-[#184085]">
-                    E: Explore the Questions
-                  </h2>
-                  <svg
-                    class="w-6 h-6 text-[#184085] transform transition-transform"
-                    id="questions-icon"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
-                  </svg>
-                </div>
-                <div class="mt-4 text-gray-600" id="questions-content">
-                  <ul class="list-disc list-inside space-y-2">
-                    <li>How intuitive is the navigation system?</li>
-                    <li>What is the average time to complete key tasks?</li>
-                    <li>
-                      Are there any usability issues that need to be addressed?
-                    </li>
-                    <li>
-                      How satisfied are users with the overall experience?
-                    </li>
-                  </ul>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </div>
+              <div class="decide-panel-content" id="questions-content">
+                <ul class="comic-list">
+                  <li class="comic-list-item">
+                    How intuitive is the navigation system?
+                  </li>
+                  <li class="comic-list-item">
+                    What is the average time to complete key tasks?
+                  </li>
+                  <li class="comic-list-item">
+                    Are there any usability issues that need to be addressed?
+                  </li>
+                  <li class="comic-list-item">
+                    How satisfied are users with the overall experience?
+                  </li>
+                </ul>
+                <div class="power-meter mt-4">
+                  <div class="power-meter-fill" style="width: 90%"></div>
                 </div>
               </div>
             </div>
 
             <!-- Choose Methods -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div class="p-6">
-                <div
-                  class="flex justify-between items-center cursor-pointer"
-                  onclick="togglePanel('methods')"
+            <div class="decide-panel animate-fade-in-up delay-300">
+              <div class="superhero-badge">C</div>
+              <div class="decide-panel-header" onclick="togglePanel('methods')">
+                <h2 class="text-2xl font-bangers text-white">
+                  Choose the Methods
+                </h2>
+                <svg
+                  class="w-6 h-6 text-white decide-panel-icon"
+                  id="methods-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <h2 class="text-2xl font-['Intro_Rust'] text-[#184085]">
-                    C: Choose the Methods
-                  </h2>
-                  <svg
-                    class="w-6 h-6 text-[#184085] transform transition-transform"
-                    id="methods-icon"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
-                  </svg>
-                </div>
-                <div class="mt-4 text-gray-600" id="methods-content">
-                  <ul class="list-disc list-inside space-y-2">
-                    <li>Usability testing with 5 participants</li>
-                    <li>Task-based evaluation</li>
-                    <li>Video recording of sessions</li>
-                    <li>Post-task questionnaires</li>
-                    <li>Think-aloud protocol</li>
-                  </ul>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </div>
+              <div class="decide-panel-content" id="methods-content">
+                <ul class="comic-list">
+                  <li class="comic-list-item">
+                    Usability testing with 5 participants
+                  </li>
+                  <li class="comic-list-item">Task-based evaluation</li>
+                  <li class="comic-list-item">Video recording of sessions</li>
+                  <li class="comic-list-item">Post-task questionnaires</li>
+                  <li class="comic-list-item">Think-aloud protocol</li>
+                </ul>
+                <div class="power-meter mt-4">
+                  <div class="power-meter-fill" style="width: 95%"></div>
                 </div>
               </div>
             </div>
 
             <!-- Identify Issues -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div class="p-6">
-                <div
-                  class="flex justify-between items-center cursor-pointer"
-                  onclick="togglePanel('issues')"
+            <div class="decide-panel animate-fade-in-up">
+              <div class="superhero-badge">I</div>
+              <div class="decide-panel-header" onclick="togglePanel('issues')">
+                <h2 class="text-2xl font-bangers text-white">
+                  Identify the Practical Issues
+                </h2>
+                <svg
+                  class="w-6 h-6 text-white decide-panel-icon"
+                  id="issues-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <h2 class="text-2xl font-['Intro_Rust'] text-[#184085]">
-                    I: Identify the Practical Issues
-                  </h2>
-                  <svg
-                    class="w-6 h-6 text-[#184085] transform transition-transform"
-                    id="issues-icon"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
-                  </svg>
-                </div>
-                <div class="mt-4 text-gray-600" id="issues-content">
-                  <ul class="list-disc list-inside space-y-2">
-                    <li>Testing environment setup</li>
-                    <li>Equipment preparation (cameras, recording devices)</li>
-                    <li>Participant scheduling and management</li>
-                    <li>Data collection and storage procedures</li>
-                    <li>Time management during sessions</li>
-                  </ul>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </div>
+              <div class="decide-panel-content" id="issues-content">
+                <ul class="comic-list">
+                  <li class="comic-list-item">Testing environment setup</li>
+                  <li class="comic-list-item">
+                    Equipment preparation (cameras, recording devices)
+                  </li>
+                  <li class="comic-list-item">
+                    Participant scheduling and management
+                  </li>
+                  <li class="comic-list-item">
+                    Data collection and storage procedures
+                  </li>
+                  <li class="comic-list-item">
+                    Time management during sessions
+                  </li>
+                </ul>
+                <div class="power-meter mt-4">
+                  <div class="power-meter-fill" style="width: 80%"></div>
                 </div>
               </div>
             </div>
 
             <!-- Decide on Ethics -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div class="p-6">
-                <div
-                  class="flex justify-between items-center cursor-pointer"
-                  onclick="togglePanel('ethics')"
+            <div class="decide-panel animate-fade-in-up delay-200">
+              <div class="superhero-badge">D</div>
+              <div class="decide-panel-header" onclick="togglePanel('ethics')">
+                <h2 class="text-2xl font-bangers text-white">
+                  Decide on Ethical Issues
+                </h2>
+                <svg
+                  class="w-6 h-6 text-white decide-panel-icon"
+                  id="ethics-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <h2 class="text-2xl font-['Intro_Rust'] text-[#184085]">
-                    D: Decide on Ethical Issues
-                  </h2>
-                  <svg
-                    class="w-6 h-6 text-[#184085] transform transition-transform"
-                    id="ethics-icon"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
-                  </svg>
-                </div>
-                <div class="mt-4 text-gray-600" id="ethics-content">
-                  <ul class="list-disc list-inside space-y-2">
-                    <li>Informed consent from participants</li>
-                    <li>Data privacy and confidentiality</li>
-                    <li>Video recording permissions</li>
-                    <li>Participant comfort and well-being</li>
-                    <li>Transparent communication about the testing process</li>
-                  </ul>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </div>
+              <div class="decide-panel-content" id="ethics-content">
+                <ul class="comic-list">
+                  <li class="comic-list-item">
+                    Informed consent from participants
+                  </li>
+                  <li class="comic-list-item">
+                    Data privacy and confidentiality
+                  </li>
+                  <li class="comic-list-item">Video recording permissions</li>
+                  <li class="comic-list-item">
+                    Participant comfort and well-being
+                  </li>
+                  <li class="comic-list-item">
+                    Transparent communication about the testing process
+                  </li>
+                </ul>
+                <div class="power-meter mt-4">
+                  <div class="power-meter-fill" style="width: 88%"></div>
                 </div>
               </div>
             </div>
 
             <!-- Evaluate Results -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div class="p-6">
-                <div
-                  class="flex justify-between items-center cursor-pointer"
-                  onclick="togglePanel('evaluate')"
+            <div class="decide-panel animate-fade-in-up delay-300">
+              <div class="superhero-badge">E</div>
+              <div
+                class="decide-panel-header"
+                onclick="togglePanel('evaluate')"
+              >
+                <h2 class="text-2xl font-bangers text-white">
+                  Evaluate Results
+                </h2>
+                <svg
+                  class="w-6 h-6 text-white decide-panel-icon"
+                  id="evaluate-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <h2 class="text-2xl font-['Intro_Rust'] text-[#184085]">
-                    E: Evaluate Results
-                  </h2>
-                  <svg
-                    class="w-6 h-6 text-[#184085] transform transition-transform"
-                    id="evaluate-icon"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
-                  </svg>
-                </div>
-                <div class="mt-4 text-gray-600" id="evaluate-content">
-                  <ul class="list-disc list-inside space-y-2">
-                    <li>Analysis of task completion times</li>
-                    <li>Evaluation of user satisfaction ratings</li>
-                    <li>Identification of usability issues</li>
-                    <li>Recommendations for improvements</li>
-                    <li>Documentation of findings and insights</li>
-                  </ul>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </div>
+              <div class="decide-panel-content" id="evaluate-content">
+                <ul class="comic-list">
+                  <li class="comic-list-item">
+                    Analysis of task completion times
+                  </li>
+                  <li class="comic-list-item">
+                    Evaluation of user satisfaction ratings
+                  </li>
+                  <li class="comic-list-item">
+                    Identification of usability issues
+                  </li>
+                  <li class="comic-list-item">
+                    Recommendations for improvements
+                  </li>
+                  <li class="comic-list-item">
+                    Documentation of findings and insights
+                  </li>
+                </ul>
+                <div class="power-meter mt-4">
+                  <div class="power-meter-fill" style="width: 92%"></div>
                 </div>
               </div>
             </div>
@@ -409,11 +856,13 @@
       </section>
 
       <main class="flex-1"></main>
-      <footer class="bg-[#184085] text-white py-8 w-full">
+      <footer class="bg-[#184085] text-white py-8 w-full comic-panel">
         <div class="container mx-auto px-4">
           <div class="text-center">
-            <p class="mb-2">© 2024 VolunTrack Usability Testing Project</p>
-            <p class="text-sm text-gray-300">
+            <p class="mb-2 font-bangers text-xl">
+              © 2024 VolunTrack Usability Testing Project
+            </p>
+            <p class="text-sm text-black speech-bubble">
               A comprehensive evaluation of user experience and interface design
             </p>
           </div>
@@ -423,16 +872,86 @@
 
     <script src="../../src/scripts/main.js"></script>
     <script>
+      // Initialize GSAP
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Animate elements on scroll
+      gsap.utils.toArray(".decide-panel").forEach((panel) => {
+        gsap.from(panel, {
+          scrollTrigger: {
+            trigger: panel,
+            start: "top bottom-=100",
+            toggleActions: "play none none reverse",
+          },
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+        });
+      });
+
+      // Mobile Menu Functionality
+      const mobileMenuButton = document.querySelector(".mobile-menu-button");
+      const mobileMenu = document.querySelector(".mobile-menu");
+      const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
+      let isMenuOpen = false;
+
+      function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        mobileMenu.classList.toggle("-translate-x-full");
+        mobileMenuOverlay.classList.toggle("hidden");
+
+        // Add comic book effect to menu items
+        if (isMenuOpen) {
+          gsap.from(".mobile-menu a", {
+            x: -50,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "back.out(1.7)",
+          });
+        }
+      }
+
+      mobileMenuButton.addEventListener("click", toggleMenu);
+      mobileMenuOverlay.addEventListener("click", toggleMenu);
+
+      // Panel Toggle Functionality
       function togglePanel(panelId) {
         const content = document.getElementById(`${panelId}-content`);
         const icon = document.getElementById(`${panelId}-icon`);
+        const panel = content.closest(".decide-panel");
 
         if (content.style.display === "none") {
           content.style.display = "block";
-          icon.style.transform = "rotate(0deg)";
+          icon.classList.remove("rotated");
+          gsap.from(content, {
+            height: 0,
+            opacity: 0,
+            duration: 0.5,
+            ease: "power2.out",
+          });
+          gsap.to(panel, {
+            y: -10,
+            duration: 0.3,
+            ease: "power2.out",
+          });
         } else {
-          content.style.display = "none";
-          icon.style.transform = "rotate(-90deg)";
+          gsap.to(content, {
+            height: 0,
+            opacity: 0,
+            duration: 0.5,
+            ease: "power2.in",
+            onComplete: () => {
+              content.style.display = "none";
+            },
+          });
+          icon.classList.add("rotated");
+          gsap.to(panel, {
+            y: 0,
+            duration: 0.3,
+            ease: "power2.in",
+          });
         }
       }
 
@@ -450,7 +969,39 @@
           const content = document.getElementById(`${panel}-content`);
           const icon = document.getElementById(`${panel}-icon`);
           content.style.display = "none";
-          icon.style.transform = "rotate(-90deg)";
+          icon.classList.add("rotated");
+        });
+
+        // Animate power meters
+        gsap.utils.toArray(".power-meter-fill").forEach((meter) => {
+          gsap.from(meter, {
+            width: 0,
+            duration: 1.5,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: meter,
+              start: "top bottom-=100",
+              toggleActions: "play none none reverse",
+            },
+          });
+        });
+
+        // Add hover effects to comic list items
+        document.querySelectorAll(".comic-list-item").forEach((item) => {
+          item.addEventListener("mouseenter", () => {
+            gsap.to(item, {
+              x: 10,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          });
+          item.addEventListener("mouseleave", () => {
+            gsap.to(item, {
+              x: 0,
+              duration: 0.3,
+              ease: "power2.in",
+            });
+          });
         });
       });
     </script>

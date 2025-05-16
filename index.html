@@ -5,374 +5,180 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VolunTrack Usability Testing</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&family=Comic+Neue:wght@400;700&family=Creepster&display=swap"
       rel="stylesheet"
     />
     <link href="https://fonts.cdnfonts.com/css/intro-rust" rel="stylesheet" />
     <link href="public/output.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="assets/images/logo.png" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </head>
-  <body class="bg-gray-50 font-['Poppins']">
-    <!-- Animated SVG Background -->
-    <div class="absolute inset-0 -z-10">
-      <svg
-        width="100%"
-        height="100%"
-        viewBox="0 0 1440 320"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path fill="#184085" fill-opacity="0.08">
-          <animate
-            attributeName="d"
-            dur="10s"
-            repeatCount="indefinite"
-            values="M0,160L80,170C160,180,320,200,480,186.7C640,173,800,127,960,128C1120,129,1280,183,1360,210.7L1440,238L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z;
-            M0,192L80,186.7C160,181,320,171,480,154.7C640,139,800,117,960,133.3C1120,149,1280,203,1360,229.3L1440,256L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z;
-            M0,160L80,170C160,180,320,200,480,186.7C640,173,800,127,960,128C1120,129,1280,183,1360,210.7L1440,238L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
-          />
-        </path>
-      </svg>
-    </div>
-    <!-- Navigation -->
-    <nav
-      class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30 fixed w-full top-0 z-50"
-    >
-      <div class="container mx-auto px-4 py-3">
-        <div class="flex justify-between items-center">
-          <div class="flex items-center space-x-3">
-            <img
-              src="public/assets/images/logo.png"
-              alt="VolunTrack Logo"
-              class="h-10 w-10 md:h-12 md:w-12 object-contain"
-            />
-            <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
-          </div>
-          <!-- Desktop Navigation -->
-          <div class="hidden md:flex space-x-6">
-            <a
-              href="index.html"
-              class="hover:text-[#f2a33c] transition-colors font-semibold"
-              >Home</a
-            >
-            <a
-              href="src/components/participants.html"
-              class="hover:text-[#f2a33c] transition-colors font-semibold"
-              >Participants</a
-            >
-            <a
-              href="src/components/tasks.html"
-              class="hover:text-[#f2a33c] transition-colors font-semibold"
-              >Tasks</a
-            >
-            <a
-              href="src/components/results.html"
-              class="hover:text-[#f2a33c] transition-colors font-semibold"
-              >Results</a
-            >
-            <a
-              href="src/components/decide.html"
-              class="hover:text-[#f2a33c] transition-colors font-semibold"
-              >DECIDE</a
-            >
-            <a
-              href="src/components/videos.html"
-              class="hover:text-[#f2a33c] transition-colors font-semibold"
-              >Videos</a
-            >
-            <a
-              href="src/components/improvements.html"
-              class="hover:text-[#f2a33c] transition-colors font-semibold"
-              >Improvements</a
-            >
-            <a
-              href="src/components/poster.html"
-              class="hover:text-[#f2a33c] transition-colors font-semibold"
-              >Poster</a
-            >
-          </div>
-          <!-- Mobile menu button -->
-          <button
-            class="md:hidden mobile-menu-button text-[#184085] focus:outline-none"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Mobile Menu Overlay -->
-    <div
-      class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-40 hidden"
-    ></div>
-
-    <!-- Mobile Menu -->
-    <div
-      class="mobile-menu fixed top-0 left-0 h-full w-64 bg-[#184085] text-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50"
-    >
-      <div class="p-4 border-b border-[#f2a33c]/30">
-        <div class="flex items-center space-x-3">
-          <img
-            src="public/assets/images/logo.png"
-            alt="VolunTrack Logo"
-            class="h-10 w-10 object-contain"
-          />
-          <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
-        </div>
-      </div>
-      <div class="p-4 space-y-4">
-        <a
-          href="index.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
-          >Home</a
-        >
-        <a
-          href="src/components/participants.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
-          >Participants</a
-        >
-        <a
-          href="src/components/tasks.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
-          >Tasks</a
-        >
-        <a
-          href="src/components/results.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
-          >Results</a
-        >
-        <a
-          href="src/components/decide.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
-          >DECIDE</a
-        >
-        <a
-          href="src/components/videos.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
-          >Videos</a
-        >
-        <a
-          href="src/components/improvements.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
-          >Improvements</a
-        >
-        <a
-          href="src/components/poster.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
-          >Poster</a
-        >
-      </div>
-    </div>
-
-    <!-- Add padding to body to account for fixed navigation -->
-    <div class="pt-16">
-      <!-- Hero Section -->
-      <section
-        class="relative text-white py-20 overflow-hidden"
-        style="
-          background: linear-gradient(
-              120deg,
-              rgba(24, 64, 133, 0.85) 60%,
-              rgba(242, 163, 60, 0.7)
-            ),
-            url('public/assets/images/hero-bg.png') center/cover no-repeat;
-        "
-      >
-        <div class="container mx-auto px-4">
-          <div class="max-w-3xl mx-auto text-center">
-            <h1
-              class="text-4xl md:text-6xl font-bangers mb-6 animate-fade-in-down"
-            >
-              VolunTrack Usability Testing
-            </h1>
-            <p class="text-xl mb-8 animate-fade-in-up delay-200">
-              Discover how we evaluated and improved the user experience of
-              VolunTrack through comprehensive usability testing.
-            </p>
-            <a
-              href="src/components/results.html"
-              class="inline-block bg-[#f2a33c] text-[#184085] font-semibold px-8 py-3 rounded-lg hover:bg-[#e6952e] transition-colors shadow-lg transform hover:scale-110 focus:scale-105 focus:ring-4 focus:ring-[#f2a33c]/50 animate-pulse"
-            >
-              View Results
-            </a>
-          </div>
-        </div>
-        <!-- All floating SVG shapes have been removed for a clean look. -->
-      </section>
-
-      <!-- Testing Team Section -->
-      <section
-        class="py-16 bg-gradient-to-br from-[#f2a33c]/10 to-[#184085]/10"
-      >
-        <div class="container mx-auto px-4">
-          <h2
-            class="text-3xl font-bangers text-[#184085] text-center mb-12 tracking-wider drop-shadow"
-          >
-            Meet Our Team
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Team Member 1 -->
-            <div
-              class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
-            >
-              <div
-                class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
-              >
-                <img
-                  src="public/assets/images/benjie.jpg"
-                  alt="Benjie A. Barrogo"
-                  class="w-full h-full object-cover"
-                />
-              </div>
-              <h3
-                class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
-              >
-                Benjie A. Barrogo
-              </h3>
-              <p class="text-[#f2a33c] font-semibold text-center">Marketer</p>
-            </div>
-            <!-- Team Member 2 -->
-            <div
-              class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
-            >
-              <div
-                class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
-              >
-                <img
-                  src="public/assets/images/pheobe.jpg"
-                  alt="Phoebe Kaye R. Crispino"
-                  class="w-full h-full object-cover"
-                />
-              </div>
-              <h3
-                class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
-              >
-                Phoebe Kaye R. Crispino
-              </h3>
-              <p class="text-[#f2a33c] font-semibold text-center">Marketer</p>
-            </div>
-            <!-- Team Member 3 -->
-            <div
-              class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
-            >
-              <div
-                class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
-              >
-                <img
-                  src="public/assets/images/mark.jpg"
-                  alt="Mark Andrew R. Francisco"
-                  class="w-full h-full object-cover"
-                />
-              </div>
-              <h3
-                class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
-              >
-                Mark Andrew R. Francisco
-              </h3>
-              <p class="text-[#f2a33c] font-semibold text-center">Developer</p>
-            </div>
-            <!-- Team Member 4 -->
-            <div
-              class="bg-white rounded-3xl shadow-xl p-6 border-4 border-[#f2a33c] hover:border-[#184085] transition-all duration-300 flex flex-col items-center group"
-            >
-              <div
-                class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
-              >
-                <img
-                  src="public/assets/images/kyla.jpg"
-                  alt="Kyla Celine N. Romero"
-                  class="w-full h-full object-cover"
-                />
-              </div>
-              <h3
-                class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
-              >
-                Kyla Celine N. Romero
-              </h3>
-              <p class="text-[#f2a33c] font-semibold text-center">
-                UI/UX Designer
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Fun Fact Carousel -->
-      <section class="py-12 bg-gradient-to-r from-[#f2a33c]/10 to-[#184085]/10">
-        <div class="container mx-auto px-4">
-          <div class="max-w-2xl mx-auto text-center">
-            <h2 class="text-2xl font-bangers text-[#184085] mb-6">
-              Did You Know?
-            </h2>
-            <div
-              id="fun-fact-carousel"
-              class="bg-white rounded-lg shadow-lg p-8 text-xl text-[#184085] min-h-[80px] flex items-center justify-center transition-all duration-500"
-            ></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <footer class="bg-[#184085] text-white py-8">
-        <div class="container mx-auto px-4">
-          <div class="text-center">
-            <p class="mb-2">© 2024 VolunTrack Usability Testing Project</p>
-            <p class="text-sm text-gray-300">
-              A comprehensive evaluation of user experience and interface design
-            </p>
-          </div>
-        </div>
-      </footer>
-    </div>
-
-    <script src="src/scripts/main.js"></script>
-    <script>
-      // Fun Fact Carousel
-      const funFacts = [
-        "VolunTrack was tested by 5 diverse college students!",
-        "Average task completion time was just 35.4 seconds.",
-        "User satisfaction rate reached 4.27 out of 5.",
-        "The UI/UX was rated as easy to use by all participants.",
-        "Our team includes marketers, a developer, and a designer!",
-        "VolunTrack helps connect volunteers with real opportunities.",
-      ];
-      let factIndex = 0;
-      function showFunFact() {
-        const el = document.getElementById("fun-fact-carousel");
-        if (el) {
-          el.textContent = funFacts[factIndex];
-          el.classList.remove("opacity-0");
-          el.classList.add("opacity-100");
-        }
-      }
-      function nextFunFact() {
-        const el = document.getElementById("fun-fact-carousel");
-        if (el) {
-          el.classList.remove("opacity-100");
-          el.classList.add("opacity-0");
-          setTimeout(() => {
-            factIndex = (factIndex + 1) % funFacts.length;
-            showFunFact();
-          }, 400);
-        }
-      }
-      setInterval(nextFunFact, 3500);
-      window.addEventListener("DOMContentLoaded", showFunFact);
-    </script>
+    <!-- Comic Book Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <style>
+      /* Comic Book Base Styles */
+      :root {
+        --comic-primary: #184085;
+        --comic-secondary: #f2a33c;
+        --comic-accent: #ff4d4d;
+        --comic-text: #333333;
+        --comic-bg: #ffffff;
+      }
+
+      body {
+        background-color: var(--comic-bg);
+        font-family: "Comic Neue", cursive;
+      }
+
+      /* Comic Panel Styles */
+      .comic-panel {
+        border: 4px solid var(--comic-text);
+        border-radius: 8px;
+        box-shadow: 4px 4px 0 var(--comic-text);
+        background: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .comic-panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: radial-gradient(
+          circle at 1px 1px,
+          rgba(0, 0, 0, 0.1) 2px,
+          transparent 0
+        );
+        background-size: 20px 20px;
+        pointer-events: none;
+      }
+
+      /* Speech Bubble Styles */
+      .speech-bubble {
+        position: relative;
+        background: white;
+        border: 3px solid var(--comic-text);
+        border-radius: 20px;
+        padding: 15px;
+        margin: 20px;
+      }
+
+      .speech-bubble::before {
+        content: "";
+        position: absolute;
+        bottom: -20px;
+        left: 20px;
+        border-width: 20px 20px 0;
+        border-style: solid;
+        border-color: white transparent;
+      }
+
+      .speech-bubble::after {
+        content: "";
+        position: absolute;
+        bottom: -23px;
+        left: 20px;
+        border-width: 20px 20px 0;
+        border-style: solid;
+        border-color: var(--comic-text) transparent;
+      }
+
+      /* Comic Navigation */
+      .comic-nav {
+        background: var(--comic-primary);
+        border-bottom: 4px solid var(--comic-text);
+        box-shadow: 0 4px 0 var(--comic-text);
+      }
+
+      .comic-nav a {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .comic-nav a:hover {
+        transform: translateY(-2px);
+      }
+
+      .comic-nav a::after {
+        content: "POW!";
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Creepster", cursive;
+        color: var(--comic-accent);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .comic-nav a:hover::after {
+        opacity: 1;
+        top: -30px;
+      }
+
+      /* Mobile Menu Overlay */
+      .mobile-menu-overlay {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      .mobile-menu {
+        border-right: 4px solid var(--comic-text);
+        box-shadow: 4px 0 0 var(--comic-text);
+      }
+
+      /* Comic Button Styles */
+      .comic-button {
+        position: relative;
+        background: var(--comic-secondary);
+        border: 3px solid var(--comic-text);
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-family: "Bangers", cursive;
+        font-size: 1.2em;
+        color: var(--comic-text);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transform: translateY(0);
+        transition: all 0.2s ease;
+      }
+
+      .comic-button:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 0 var(--comic-text);
+      }
+
+      .comic-button:active {
+        transform: translateY(0);
+        box-shadow: none;
+      }
+
+      /* Comic Title Styles */
+      .comic-title {
+        font-family: "Bangers", cursive;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 3px 3px 0 var(--comic-text);
+        position: relative;
+        display: inline-block;
+      }
+
+      .comic-title::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        background: var(--comic-accent);
+        z-index: -1;
+        transform: rotate(-2deg);
+      }
+
       /* Custom Animations */
       @keyframes fade-in-down {
         0% {
@@ -455,5 +261,424 @@
         font-family: "Bangers", cursive;
       }
     </style>
+  </head>
+  <body class="bg-gray-50 font-['Poppins']">
+    <!-- Animated SVG Background -->
+    <div class="absolute inset-0 -z-10">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 1440 320"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path fill="#184085" fill-opacity="0.08">
+          <animate
+            attributeName="d"
+            dur="10s"
+            repeatCount="indefinite"
+            values="M0,160L80,170C160,180,320,200,480,186.7C640,173,800,127,960,128C1120,129,1280,183,1360,210.7L1440,238L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z;
+            M0,192L80,186.7C160,181,320,171,480,154.7C640,139,800,117,960,133.3C1120,149,1280,203,1360,229.3L1440,256L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z;
+            M0,160L80,170C160,180,320,200,480,186.7C640,173,800,127,960,128C1120,129,1280,183,1360,210.7L1440,238L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
+          />
+        </path>
+      </svg>
+    </div>
+    <!-- Navigation -->
+    <nav class="comic-nav text-white shadow-lg fixed w-full top-0 z-50">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-3">
+            <img
+              src="public/assets/images/logo.png"
+              alt="VolunTrack Logo"
+              class="h-10 w-10 md:h-12 md:w-12 object-contain comic-panel"
+            />
+            <div class="text-2xl font-bangers tracking-wide comic-title">
+              VolunTrack
+            </div>
+          </div>
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex space-x-6">
+            <a
+              href="index.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Home</a
+            >
+            <a
+              href="src/components/participants.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Participants</a
+            >
+            <a
+              href="src/components/tasks.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Tasks</a
+            >
+            <a
+              href="src/components/results.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Results</a
+            >
+            <a
+              href="src/components/decide.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >DECIDE</a
+            >
+            <a
+              href="src/components/videos.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Videos</a
+            >
+            <a
+              href="src/components/improvements.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Improvements</a
+            >
+            <a
+              href="src/components/poster.html"
+              class="hover:text-[#f2a33c] transition-colors font-semibold"
+              >Poster</a
+            >
+          </div>
+          <!-- Mobile menu button -->
+          <button
+            class="md:hidden mobile-menu-button text-white focus:outline-none comic-button"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div
+      class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-40 hidden"
+    ></div>
+
+    <!-- Mobile Menu -->
+    <div
+      class="mobile-menu fixed top-0 left-0 h-full w-64 bg-[#184085] text-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50"
+    >
+      <div class="p-4 border-b border-[#f2a33c]/30">
+        <div class="flex items-center space-x-3">
+          <img
+            src="public/assets/images/logo.png"
+            alt="VolunTrack Logo"
+            class="h-10 w-10 object-contain comic-panel"
+          />
+          <div class="text-2xl font-bangers tracking-wide comic-title">
+            VolunTrack
+          </div>
+        </div>
+      </div>
+      <div class="p-4 space-y-4">
+        <a
+          href="index.html"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
+          >Home</a
+        >
+        <a
+          href="src/components/participants.html"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
+          >Participants</a
+        >
+        <a
+          href="src/components/tasks.html"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
+          >Tasks</a
+        >
+        <a
+          href="src/components/results.html"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
+          >Results</a
+        >
+        <a
+          href="src/components/decide.html"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
+          >DECIDE</a
+        >
+        <a
+          href="src/components/videos.html"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
+          >Videos</a
+        >
+        <a
+          href="src/components/improvements.html"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
+          >Improvements</a
+        >
+        <a
+          href="src/components/poster.html"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
+          >Poster</a
+        >
+      </div>
+    </div>
+
+    <!-- Add padding to body to account for fixed navigation -->
+    <div class="pt-16">
+      <!-- Hero Section -->
+      <section
+        class="relative text-white py-20 overflow-hidden comic-panel"
+        style="
+          background: linear-gradient(
+              120deg,
+              rgba(24, 64, 133, 0.85) 60%,
+              rgba(242, 163, 60, 0.7)
+            ),
+            url('public/assets/images/hero-bg.png') center/cover no-repeat;
+        "
+      >
+        <div class="action-lines"></div>
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl mx-auto text-center">
+            <h1
+              class="text-4xl md:text-6xl font-bangers mb-6 animate-fade-in-down comic-title"
+            >
+              VolunTrack Usability Testing
+            </h1>
+            <div
+              class="speech-bubble text-black text-xl mb-8 animate-fade-in-up delay-200"
+            >
+              Discover how we evaluated and improved the user experience of
+              VolunTrack through comprehensive usability testing.
+            </div>
+            <a
+              href="src/components/results.html"
+              class="comic-button inline-block"
+            >
+              View Results
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testing Team Section -->
+      <section
+        class="py-16 bg-gradient-to-br from-[#f2a33c]/10 to-[#184085]/10"
+      >
+        <div class="container mx-auto px-4">
+          <h2
+            class="text-3xl font-bangers text-[#f2a33c] text-center mb-12 tracking-wider drop-shadow comic-title"
+          >
+            Meet Our Team
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Team Member 1 -->
+            <div
+              class="comic-panel bg-white p-6 hover:scale-105 transition-all duration-300 flex flex-col items-center group"
+            >
+              <div
+                class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
+              >
+                <img
+                  src="public/assets/images/benjie.jpg"
+                  alt="Benjie A. Barrogo"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="speech-bubble text-center">
+                <h3
+                  class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
+                >
+                  Benjie A. Barrogo
+                </h3>
+                <p class="text-[#f2a33c] font-semibold text-center">Marketer</p>
+              </div>
+            </div>
+            <!-- Team Member 2 -->
+            <div
+              class="comic-panel bg-white p-6 hover:scale-105 transition-all duration-300 flex flex-col items-center group"
+            >
+              <div
+                class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
+              >
+                <img
+                  src="public/assets/images/pheobe.jpg"
+                  alt="Phoebe Kaye R. Crispino"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="speech-bubble text-center">
+                <h3
+                  class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
+                >
+                  Phoebe Kaye R. Crispino
+                </h3>
+                <p class="text-[#f2a33c] font-semibold text-center">Marketer</p>
+              </div>
+            </div>
+            <!-- Team Member 3 -->
+            <div
+              class="comic-panel bg-white p-6 hover:scale-105 transition-all duration-300 flex flex-col items-center group"
+            >
+              <div
+                class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
+              >
+                <img
+                  src="public/assets/images/mark.jpg"
+                  alt="Mark Andrew R. Francisco"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="speech-bubble text-center">
+                <h3
+                  class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
+                >
+                  Mark Andrew R. Francisco
+                </h3>
+                <p class="text-[#f2a33c] font-semibold text-center">
+                  Developer
+                </p>
+              </div>
+            </div>
+            <!-- Team Member 4 -->
+            <div
+              class="comic-panel bg-white p-6 hover:scale-105 transition-all duration-300 flex flex-col items-center group"
+            >
+              <div
+                class="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-[#184085] group-hover:scale-105 transition-transform duration-300 bg-gradient-to-tr from-[#f2a33c]/30 to-[#184085]/20"
+              >
+                <img
+                  src="public/assets/images/kyla.jpg"
+                  alt="Kyla Celine N. Romero"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="speech-bubble text-center">
+                <h3
+                  class="text-xl font-bangers text-[#184085] mb-1 text-center tracking-wide"
+                >
+                  Kyla Celine N. Romero
+                </h3>
+                <p class="text-[#f2a33c] font-semibold text-center">
+                  UI/UX Designer
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Fun Fact Carousel -->
+      <section class="py-12 bg-gradient-to-r from-[#f2a33c]/10 to-[#184085]/10">
+        <div class="container mx-auto px-4">
+          <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-2xl font-bangers text-[#f2a33c] mb-6 comic-title">
+              Did You Know?
+            </h2>
+            <div
+              id="fun-fact-carousel"
+              class="comic-panel bg-white p-8 text-xl text-[#184085] min-h-[80px] flex items-center justify-center transition-all duration-500"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-[#184085] text-white py-8 comic-panel">
+        <div class="container mx-auto px-4">
+          <div class="text-center">
+            <p class="mb-2 font-bangers text-xl">
+              © 2024 VolunTrack Usability Testing Project
+            </p>
+            <p class="text-sm text-black speech-bubble">
+              A comprehensive evaluation of user experience and interface design
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="src/scripts/main.js"></script>
+    <script>
+      // Initialize GSAP
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Animate elements on scroll
+      gsap.utils.toArray(".comic-panel").forEach((panel) => {
+        gsap.from(panel, {
+          scrollTrigger: {
+            trigger: panel,
+            start: "top bottom-=100",
+            toggleActions: "play none none reverse",
+          },
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+        });
+      });
+
+      // Mobile Menu Functionality
+      const mobileMenuButton = document.querySelector(".mobile-menu-button");
+      const mobileMenu = document.querySelector(".mobile-menu");
+      const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
+      let isMenuOpen = false;
+
+      function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        mobileMenu.classList.toggle("-translate-x-full");
+        mobileMenuOverlay.classList.toggle("hidden");
+      }
+
+      mobileMenuButton.addEventListener("click", toggleMenu);
+      mobileMenuOverlay.addEventListener("click", toggleMenu);
+
+      // Fun Fact Carousel with Comic Style
+      const funFacts = [
+        "VolunTrack was tested by 5 diverse college students!",
+        "Average task completion time was just 35.4 seconds.",
+        "User satisfaction rate reached 4.27 out of 5.",
+        "The UI/UX was rated as easy to use by all participants.",
+        "Our team includes marketers, a developer, and a designer!",
+        "VolunTrack helps connect volunteers with real opportunities.",
+      ];
+      let factIndex = 0;
+
+      function showFunFact() {
+        const el = document.getElementById("fun-fact-carousel");
+        if (el) {
+          // Add comic style transition
+          el.style.transform = "scale(0.8)";
+          el.style.opacity = "0";
+
+          setTimeout(() => {
+            el.textContent = funFacts[factIndex];
+            el.style.transform = "scale(1)";
+            el.style.opacity = "1";
+          }, 300);
+        }
+      }
+
+      function nextFunFact() {
+        const el = document.getElementById("fun-fact-carousel");
+        if (el) {
+          el.style.transform = "scale(0.8)";
+          el.style.opacity = "0";
+
+          setTimeout(() => {
+            factIndex = (factIndex + 1) % funFacts.length;
+            showFunFact();
+          }, 300);
+        }
+      }
+
+      setInterval(nextFunFact, 3500);
+      window.addEventListener("DOMContentLoaded", showFunFact);
+    </script>
   </body>
 </html>

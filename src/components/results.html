@@ -5,27 +5,355 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Results - VolunTrack Usability Testing</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bangers&family=Comic+Neue:wght@400;700&family=Creepster&display=swap"
       rel="stylesheet"
     />
     <link href="https://fonts.cdnfonts.com/css/intro-rust" rel="stylesheet" />
     <link href="../../public/output.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Comic Book Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+      /* Comic Book Base Styles */
+      :root {
+        --comic-primary: #184085;
+        --comic-secondary: #f2a33c;
+        --comic-accent: #ff4d4d;
+        --comic-text: #333333;
+        --comic-bg: #ffffff;
+      }
+
+      body {
+        background-color: var(--comic-bg);
+        font-family: "Comic Neue", cursive;
+      }
+
+      /* Comic Panel Styles */
+      .comic-panel {
+        border: 4px solid var(--comic-text);
+        border-radius: 8px;
+        box-shadow: 4px 4px 0 var(--comic-text);
+        background: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .comic-panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: radial-gradient(
+          circle at 1px 1px,
+          rgba(0, 0, 0, 0.1) 2px,
+          transparent 0
+        );
+        background-size: 20px 20px;
+        pointer-events: none;
+      }
+
+      /* Speech Bubble Styles */
+      .speech-bubble {
+        position: relative;
+        background: white;
+        border: 3px solid var(--comic-text);
+        border-radius: 20px;
+        padding: 15px;
+        margin: 20px;
+      }
+
+      .speech-bubble::before {
+        content: "";
+        position: absolute;
+        bottom: -20px;
+        left: 20px;
+        border-width: 20px 20px 0;
+        border-style: solid;
+        border-color: white transparent;
+      }
+
+      .speech-bubble::after {
+        content: "";
+        position: absolute;
+        bottom: -23px;
+        left: 20px;
+        border-width: 20px 20px 0;
+        border-style: solid;
+        border-color: var(--comic-text) transparent;
+      }
+
+      /* Comic Navigation */
+      .comic-nav {
+        background: var(--comic-primary);
+        border-bottom: 4px solid var(--comic-text);
+        box-shadow: 0 4px 0 var(--comic-text);
+      }
+
+      .comic-nav a {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .comic-nav a:hover {
+        transform: translateY(-2px);
+      }
+
+      .comic-nav a::after {
+        content: "POW!";
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Creepster", cursive;
+        color: var(--comic-accent);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .comic-nav a:hover::after {
+        opacity: 1;
+        top: -30px;
+      }
+
+      /* Mobile Menu Overlay */
+      .mobile-menu-overlay {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      .mobile-menu {
+        border-right: 4px solid var(--comic-text);
+        box-shadow: 4px 0 0 var(--comic-text);
+      }
+
+      /* Comic Button Styles */
+      .comic-button {
+        position: relative;
+        background: var(--comic-secondary);
+        border: 3px solid var(--comic-text);
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-family: "Bangers", cursive;
+        font-size: 1.2em;
+        color: var(--comic-text);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transform: translateY(0);
+        transition: all 0.2s ease;
+      }
+
+      .comic-button:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 0 var(--comic-text);
+      }
+
+      .comic-button:active {
+        transform: translateY(0);
+        box-shadow: none;
+      }
+
+      /* Comic Title Styles */
+      .comic-title {
+        font-family: "Bangers", cursive;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 3px 3px 0 var(--comic-text);
+        position: relative;
+        display: inline-block;
+      }
+
+      .comic-title::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        background: var(--comic-accent);
+        z-index: -1;
+        transform: rotate(-2deg);
+      }
+
+      /* Custom Animations */
+      @keyframes fade-in-down {
+        0% {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-down {
+        animation: fade-in-down 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      @keyframes fade-in-up {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-up {
+        animation: fade-in-up 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+      }
+      .delay-200 {
+        animation-delay: 0.2s;
+      }
+      @keyframes bounce-slow {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+      .animate-bounce-slow {
+        animation: bounce-slow 2s infinite;
+      }
+      @keyframes float-slow {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      .animate-float-slow {
+        animation: float-slow 6s ease-in-out infinite;
+      }
+      @keyframes float-medium {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-18px);
+        }
+      }
+      .animate-float-medium {
+        animation: float-medium 8s ease-in-out infinite;
+      }
+      @keyframes float-fast {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-30px);
+        }
+      }
+      .animate-float-fast {
+        animation: float-fast 4s ease-in-out infinite;
+      }
+      .font-bangers {
+        font-family: "Bangers", cursive;
+      }
+
+      /* Action Lines */
+      .action-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(255, 77, 77, 0.1) 10px,
+          rgba(255, 77, 77, 0.1) 20px
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* Chart Panel Styles */
+      .chart-panel {
+        background: white;
+        border: 4px solid var(--comic-text);
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 4px 4px 0 var(--comic-text);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .chart-panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: radial-gradient(
+          circle at 1px 1px,
+          rgba(0, 0, 0, 0.1) 2px,
+          transparent 0
+        );
+        background-size: 20px 20px;
+        pointer-events: none;
+      }
+
+      /* Stats Panel Styles */
+      .stats-panel {
+        background: white;
+        border: 4px solid var(--comic-text);
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 4px 4px 0 var(--comic-text);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
+
+      .stats-panel:hover {
+        transform: translateY(-5px);
+      }
+
+      .stats-panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: radial-gradient(
+          circle at 1px 1px,
+          rgba(0, 0, 0, 0.1) 2px,
+          transparent 0
+        );
+        background-size: 20px 20px;
+        pointer-events: none;
+      }
+    </style>
   </head>
   <body class="bg-gray-50 font-['Poppins'] min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav
-      class="bg-white text-[#184085] shadow-lg border-b border-[#f2a33c]/30 fixed w-full top-0 z-50"
-    >
+    <nav class="comic-nav text-white shadow-lg fixed w-full top-0 z-50">
       <div class="container mx-auto px-4 py-3">
         <div class="flex justify-between items-center">
           <div class="flex items-center space-x-3">
             <img
               src="../../public/assets/images/logo.png"
               alt="VolunTrack Logo"
-              class="h-10 w-10 md:h-12 md:w-12 object-contain"
+              class="h-10 w-10 md:h-12 md:w-12 object-contain comic-panel"
             />
-            <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+            <div class="text-2xl font-bangers tracking-wide comic-title">
+              VolunTrack
+            </div>
           </div>
           <!-- Desktop Navigation -->
           <div class="hidden md:flex space-x-6">
@@ -72,7 +400,7 @@
           </div>
           <!-- Mobile menu button -->
           <button
-            class="md:hidden mobile-menu-button text-[#184085] focus:outline-none"
+            class="md:hidden mobile-menu-button text-white focus:outline-none comic-button"
           >
             <svg
               class="w-6 h-6"
@@ -94,7 +422,7 @@
 
     <!-- Mobile Menu Overlay -->
     <div
-      class="mobile-menu-overlay fixed inset-0 bg-transparent z-40 hidden"
+      class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-40 hidden"
     ></div>
 
     <!-- Mobile Menu -->
@@ -106,50 +434,52 @@
           <img
             src="../../public/assets/images/logo.png"
             alt="VolunTrack Logo"
-            class="h-10 w-10 object-contain"
+            class="h-10 w-10 object-contain comic-panel"
           />
-          <div class="text-2xl font-bangers tracking-wide">VolunTrack</div>
+          <div class="text-2xl font-bangers tracking-wide comic-title">
+            VolunTrack
+          </div>
         </div>
       </div>
       <div class="p-4 space-y-4">
         <a
           href="../../index.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Home</a
         >
         <a
           href="participants.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Participants</a
         >
         <a
           href="tasks.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Tasks</a
         >
         <a
           href="results.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Results</a
         >
         <a
           href="decide.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >DECIDE</a
         >
         <a
           href="videos.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Videos</a
         >
         <a
           href="improvements.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Improvements</a
         >
         <a
           href="poster.html"
-          class="block hover:text-[#f2a33c] transition-colors font-semibold"
+          class="block hover:text-[#f2a33c] text-black transition-colors font-semibold speech-bubble"
           >Poster</a
         >
       </div>
@@ -159,73 +489,115 @@
     <div class="pt-16">
       <!-- Header -->
       <header
-        class="bg-gradient-to-r from-[#184085] to-[#1a4a9c] text-white py-12"
+        class="relative text-white py-20 overflow-hidden comic-panel"
+        style="
+          background: linear-gradient(
+              120deg,
+              rgba(24, 64, 133, 0.85) 60%,
+              rgba(242, 163, 60, 0.7)
+            ),
+            url('../../public/assets/images/hero-bg.png') center/cover no-repeat;
+        "
       >
+        <div class="action-lines"></div>
         <div class="container mx-auto px-4">
-          <h1 class="text-4xl font-bangers text-center mb-4">
+          <h1
+            class="text-4xl md:text-6xl font-bangers mb-6 animate-fade-in-down comic-title text-center"
+          >
             Testing Results
           </h1>
-          <p class="text-center text-lg max-w-3xl mx-auto">
+          <div
+            class="speech-bubble text-black text-xl mb-8 animate-fade-in-up delay-200 text-center"
+          >
             Comprehensive analysis of the usability testing outcomes and
             participant feedback.
-          </p>
+          </div>
         </div>
       </header>
 
       <!-- Usability Test Summary -->
-      <section class="py-8 bg-white">
+      <section
+        class="py-16 bg-gradient-to-br from-[#f2a33c]/10 to-[#184085]/10"
+      >
         <div class="container mx-auto px-4">
           <div class="max-w-3xl mx-auto">
-            <h2 class="text-2xl font-bangers text-[#184085] mb-4">
+            <h2
+              class="text-3xl font-bangers text-[#f2a33c] text-center mb-12 tracking-wider drop-shadow comic-title"
+            >
               Summarize Usability Test
             </h2>
-            <p class="text-gray-700 text-base">
-              The usability test for VolunTrack was conducted with five college
-              student participants from various academic programs. Overall, the
-              results showed that the system is intuitive, accessible, and easy
-              to use. The average task completion time was 35.4 seconds,
-              indicating quick interactions and efficient navigation. The
-              satisfaction rating averaged 4.3 out of 5, reflecting a generally
-              positive user experience. Participants perceived tasks as low in
-              complexity, with an average complexity rating of 1.6 out of 5.<br /><br />
-              While most participants praised the design, layout, and ease of
-              use, a few suggested minor improvements such as increasing icon
-              size, enhancing navigation clarity, and adding more informative
-              content. No critical usability issues were found, and all users
-              completed the tasks without assistance, demonstrating strong
-              learnability.
-            </p>
+            <div class="comic-panel bg-white p-8 animate-fade-in-up">
+              <div class="speech-bubble text-gray-700 text-base">
+                The usability test for VolunTrack was conducted with five
+                college student participants from various academic programs.
+                Overall, the results showed that the system is intuitive,
+                accessible, and easy to use. The average task completion time
+                was 35.4 seconds, indicating quick interactions and efficient
+                navigation. The satisfaction rating averaged 4.3 out of 5,
+                reflecting a generally positive user experience. Participants
+                perceived tasks as low in complexity, with an average complexity
+                rating of 1.6 out of 5.<br /><br />
+                While most participants praised the design, layout, and ease of
+                use, a few suggested minor improvements such as increasing icon
+                size, enhancing navigation clarity, and adding more informative
+                content. No critical usability issues were found, and all users
+                completed the tasks without assistance, demonstrating strong
+                learnability.
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Summary Section -->
-      <section class="py-12 bg-white">
+      <section
+        class="py-12 bg-gradient-to-br from-[#184085]/10 to-[#f2a33c]/10"
+      >
         <div class="container mx-auto px-4">
           <div class="max-w-4xl mx-auto">
-            <h2 class="text-2xl font-bangers text-[#184085] mb-8">
+            <h2
+              class="text-3xl font-bangers text-[#f2a33c] text-center mb-12 tracking-wider drop-shadow comic-title"
+            >
               Key Findings
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div class="bg-gray-50 rounded-lg p-6 text-center">
-                <h3 class="text-xl font-semibold text-[#184085] mb-2">
+              <div
+                class="stats-panel bg-white p-6 text-center animate-fade-in-up"
+              >
+                <h3 class="text-xl font-bangers text-[#184085] mb-2">
                   Average Task Completion Time
                 </h3>
-                <p class="text-3xl font-bold text-[#f2a33c]">35.4s</p>
+                <p
+                  class="text-4xl font-bold text-[#f2a33c] animate-bounce-slow"
+                >
+                  35.4s
+                </p>
                 <p class="text-gray-600 mt-2">Target: 30s</p>
               </div>
-              <div class="bg-gray-50 rounded-lg p-6 text-center">
-                <h3 class="text-xl font-semibold text-[#184085] mb-2">
+              <div
+                class="stats-panel bg-white p-6 text-center animate-fade-in-up delay-200"
+              >
+                <h3 class="text-xl font-bangers text-[#184085] mb-2">
                   User Satisfaction Rate
                 </h3>
-                <p class="text-3xl font-bold text-[#f2a33c]">4.27/5</p>
+                <p
+                  class="text-4xl font-bold text-[#f2a33c] animate-bounce-slow"
+                >
+                  4.27/5
+                </p>
                 <p class="text-gray-600 mt-2">Target: 4.5/5</p>
               </div>
-              <div class="bg-gray-50 rounded-lg p-6 text-center">
-                <h3 class="text-xl font-semibold text-[#184085] mb-2">
+              <div
+                class="stats-panel bg-white p-6 text-center animate-fade-in-up delay-300"
+              >
+                <h3 class="text-xl font-bangers text-[#184085] mb-2">
                   Complexity Level
                 </h3>
-                <p class="text-3xl font-bold text-[#f2a33c]">1.6/5</p>
+                <p
+                  class="text-4xl font-bold text-[#f2a33c] animate-bounce-slow"
+                >
+                  1.6/5
+                </p>
                 <p class="text-gray-600 mt-2">Target: 2/5</p>
               </div>
             </div>
@@ -234,47 +606,49 @@
       </section>
 
       <!-- Detailed Results as Bar Graphs -->
-      <section class="py-12 bg-white">
+      <section
+        class="py-12 bg-gradient-to-br from-[#f2a33c]/10 to-[#184085]/10"
+      >
         <div class="container mx-auto px-4">
           <div class="max-w-6xl mx-auto space-y-12">
             <!-- Task 1 Satisfaction & Complexity -->
-            <div>
-              <h3 class="text-xl font-bangers text-[#184085] mb-2">
+            <div class="chart-panel animate-fade-in-up">
+              <h3 class="text-2xl font-bangers text-[#f2a33c] mb-4 comic-title">
                 Task 1: Satisfaction Rate & Level of Complexity
               </h3>
               <canvas id="task1SatisfactionComplexity"></canvas>
             </div>
             <!-- Task 2 Satisfaction & Complexity -->
-            <div>
-              <h3 class="text-xl font-bangers text-[#184085] mb-2">
+            <div class="chart-panel animate-fade-in-up delay-200">
+              <h3 class="text-2xl font-bangers text-[#f2a33c] mb-4 comic-title">
                 Task 2: Satisfaction Rate & Level of Complexity
               </h3>
               <canvas id="task2SatisfactionComplexity"></canvas>
             </div>
             <!-- Task 3 Satisfaction & Complexity -->
-            <div>
-              <h3 class="text-xl font-bangers text-[#184085] mb-2">
+            <div class="chart-panel animate-fade-in-up delay-300">
+              <h3 class="text-2xl font-bangers text-[#f2a33c] mb-4 comic-title">
                 Task 3: Satisfaction Rate & Level of Complexity
               </h3>
               <canvas id="task3SatisfactionComplexity"></canvas>
             </div>
             <!-- Task 1 Time -->
-            <div>
-              <h3 class="text-xl font-bangers text-[#184085] mb-2">
+            <div class="chart-panel animate-fade-in-up">
+              <h3 class="text-2xl font-bangers text-[#f2a33c] mb-4 comic-title">
                 Task 1: Time to Use (Seconds)
               </h3>
               <canvas id="task1Time"></canvas>
             </div>
             <!-- Task 2 Time -->
-            <div>
-              <h3 class="text-xl font-bangers text-[#184085] mb-2">
+            <div class="chart-panel animate-fade-in-up delay-200">
+              <h3 class="text-2xl font-bangers text-[#f2a33c] mb-4 comic-title">
                 Task 2: Time to Use (Seconds)
               </h3>
               <canvas id="task2Time"></canvas>
             </div>
             <!-- Task 3 Time -->
-            <div>
-              <h3 class="text-xl font-bangers text-[#184085] mb-2">
+            <div class="chart-panel animate-fade-in-up delay-300">
+              <h3 class="text-2xl font-bangers text-[#f2a33c] mb-4 comic-title">
                 Task 3: Time to Use (Seconds)
               </h3>
               <canvas id="task3Time"></canvas>
@@ -284,21 +658,25 @@
       </section>
 
       <!-- Canva Embed Section -->
-      <section class="py-12 bg-gray-50">
+      <section
+        class="py-12 bg-gradient-to-br from-[#184085]/10 to-[#f2a33c]/10"
+      >
         <div class="container mx-auto px-4">
           <div class="max-w-4xl mx-auto">
-            <h2 class="text-2xl font-bangers text-[#184085] mb-8">
+            <h2
+              class="text-3xl font-bangers text-[#f2a33c] text-center mb-12 tracking-wider drop-shadow comic-title"
+            >
               Additional Visualizations
             </h2>
-            <div class="bg-white rounded-lg p-6 shadow-lg">
-              <p class="text-gray-600 mb-4">
+            <div class="comic-panel bg-white p-8 animate-fade-in-up">
+              <div class="speech-bubble text-gray-700 mb-6">
                 For more detailed visualizations and analysis, please visit our
                 Canva presentation:
-              </p>
+              </div>
               <a
                 href="https://www.canva.com/design/DAGm9LhIfew/T7ZvbjEgsbs-T3kLAabm1Q/edit?utm_content=DAGm9LhIfew&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
                 target="_blank"
-                class="inline-block bg-[#f2a33c] text-[#184085] font-semibold px-6 py-3 rounded-lg hover:bg-[#e6952e] transition-colors"
+                class="comic-button inline-block"
               >
                 View Canva Presentation
               </a>
@@ -308,11 +686,13 @@
       </section>
 
       <main class="flex-1"></main>
-      <footer class="bg-[#184085] text-white py-8 w-full">
+      <footer class="bg-[#184085] text-white py-8 w-full comic-panel">
         <div class="container mx-auto px-4">
           <div class="text-center">
-            <p class="mb-2">© 2024 VolunTrack Usability Testing Project</p>
-            <p class="text-sm text-gray-300">
+            <p class="mb-2 font-bangers text-xl">
+              © 2024 VolunTrack Usability Testing Project
+            </p>
+            <p class="text-sm text-black speech-bubble">
               A comprehensive evaluation of user experience and interface design
             </p>
           </div>
@@ -321,6 +701,55 @@
 
       <script src="../../src/scripts/main.js"></script>
       <script>
+        // Initialize GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate elements on scroll
+        gsap.utils
+          .toArray(".comic-panel, .stats-panel, .chart-panel")
+          .forEach((panel) => {
+            gsap.from(panel, {
+              scrollTrigger: {
+                trigger: panel,
+                start: "top bottom-=100",
+                toggleActions: "play none none reverse",
+              },
+              y: 50,
+              opacity: 0,
+              duration: 1,
+              ease: "power2.out",
+            });
+          });
+
+        // Mobile Menu Functionality
+        const mobileMenuButton = document.querySelector(".mobile-menu-button");
+        const mobileMenu = document.querySelector(".mobile-menu");
+        const mobileMenuOverlay = document.querySelector(
+          ".mobile-menu-overlay"
+        );
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+          isMenuOpen = !isMenuOpen;
+          mobileMenu.classList.toggle("-translate-x-full");
+          mobileMenuOverlay.classList.toggle("hidden");
+
+          // Add comic book effect to menu items
+          if (isMenuOpen) {
+            gsap.from(".mobile-menu a", {
+              x: -50,
+              opacity: 0,
+              duration: 0.5,
+              stagger: 0.1,
+              ease: "back.out(1.7)",
+            });
+          }
+        }
+
+        mobileMenuButton.addEventListener("click", toggleMenu);
+        mobileMenuOverlay.addEventListener("click", toggleMenu);
+
+        // Chart Data
         const participants = [
           "Participant 1",
           "Participant 2",
@@ -342,7 +771,13 @@
         const task2Time = [11, 13, 29, 24, 18];
         const task3Time = [35, 21, 25, 30, 16];
 
-        // Helper to create grouped bar chart
+        // Comic Book Chart Styles
+        Chart.defaults.font.family = "'Comic Neue', cursive";
+        Chart.defaults.color = "#333333";
+        Chart.defaults.borderColor = "#333333";
+        Chart.defaults.borderWidth = 2;
+
+        // Helper to create grouped bar chart with comic style
         function createGroupedBarChart(ctx, label1, data1, label2, data2) {
           new Chart(ctx, {
             type: "bar",
@@ -353,23 +788,84 @@
                   label: label1,
                   data: data1,
                   backgroundColor: "#f2a33c",
+                  borderColor: "#333333",
+                  borderWidth: 2,
+                  borderRadius: 4,
                 },
                 {
                   label: label2,
                   data: data2,
                   backgroundColor: "#184085",
+                  borderColor: "#333333",
+                  borderWidth: 2,
+                  borderRadius: 4,
                 },
               ],
             },
             options: {
               responsive: true,
-              plugins: { legend: { position: "top" } },
-              scales: { y: { beginAtZero: true } },
+              plugins: {
+                legend: {
+                  position: "top",
+                  labels: {
+                    font: {
+                      family: "'Bangers', cursive",
+                      size: 16,
+                    },
+                    padding: 20,
+                  },
+                },
+                tooltip: {
+                  backgroundColor: "white",
+                  titleColor: "#333333",
+                  bodyColor: "#333333",
+                  borderColor: "#333333",
+                  borderWidth: 2,
+                  padding: 12,
+                  titleFont: {
+                    family: "'Bangers', cursive",
+                    size: 16,
+                  },
+                  bodyFont: {
+                    family: "'Comic Neue', cursive",
+                    size: 14,
+                  },
+                },
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  grid: {
+                    color: "rgba(0, 0, 0, 0.1)",
+                  },
+                  ticks: {
+                    font: {
+                      family: "'Comic Neue', cursive",
+                      size: 14,
+                    },
+                  },
+                },
+                x: {
+                  grid: {
+                    display: false,
+                  },
+                  ticks: {
+                    font: {
+                      family: "'Comic Neue', cursive",
+                      size: 14,
+                    },
+                  },
+                },
+              },
+              animation: {
+                duration: 2000,
+                easing: "easeOutQuart",
+              },
             },
           });
         }
 
-        // Helper to create single bar chart
+        // Helper to create single bar chart with comic style
         function createSingleBarChart(ctx, label, data) {
           new Chart(ctx, {
             type: "bar",
@@ -380,61 +876,137 @@
                   label: label,
                   data: data,
                   backgroundColor: "#f2a33c",
+                  borderColor: "#333333",
+                  borderWidth: 2,
+                  borderRadius: 4,
                 },
               ],
             },
             options: {
               responsive: true,
-              plugins: { legend: { display: false } },
-              scales: { y: { beginAtZero: true } },
+              plugins: {
+                legend: {
+                  display: false,
+                },
+                tooltip: {
+                  backgroundColor: "white",
+                  titleColor: "#333333",
+                  bodyColor: "#333333",
+                  borderColor: "#333333",
+                  borderWidth: 2,
+                  padding: 12,
+                  titleFont: {
+                    family: "'Bangers', cursive",
+                    size: 16,
+                  },
+                  bodyFont: {
+                    family: "'Comic Neue', cursive",
+                    size: 14,
+                  },
+                },
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  grid: {
+                    color: "rgba(0, 0, 0, 0.1)",
+                  },
+                  ticks: {
+                    font: {
+                      family: "'Comic Neue', cursive",
+                      size: 14,
+                    },
+                  },
+                },
+                x: {
+                  grid: {
+                    display: false,
+                  },
+                  ticks: {
+                    font: {
+                      family: "'Comic Neue', cursive",
+                      size: 14,
+                    },
+                  },
+                },
+              },
+              animation: {
+                duration: 2000,
+                easing: "easeOutQuart",
+              },
             },
           });
         }
 
         // Render all charts after DOM is loaded
         document.addEventListener("DOMContentLoaded", function () {
-          createGroupedBarChart(
-            document
-              .getElementById("task1SatisfactionComplexity")
-              .getContext("2d"),
-            "Satisfaction Rate",
-            task1Satisfaction,
-            "Level of Complexity",
-            task1Complexity
-          );
-          createGroupedBarChart(
-            document
-              .getElementById("task2SatisfactionComplexity")
-              .getContext("2d"),
-            "Satisfaction Rate",
-            task2Satisfaction,
-            "Level of Complexity",
-            task2Complexity
-          );
-          createGroupedBarChart(
-            document
-              .getElementById("task3SatisfactionComplexity")
-              .getContext("2d"),
-            "Satisfaction Rate",
-            task3Satisfaction,
-            "Level of Complexity",
-            task3Complexity
-          );
-          createSingleBarChart(
-            document.getElementById("task1Time").getContext("2d"),
-            "Time in Seconds",
-            task1Time
-          );
-          createSingleBarChart(
-            document.getElementById("task2Time").getContext("2d"),
-            "Time in Seconds",
-            task2Time
-          );
-          createSingleBarChart(
-            document.getElementById("task3Time").getContext("2d"),
-            "Time in Seconds",
-            task3Time
-          );
+          // Add action lines to chart panels
+          document.querySelectorAll(".chart-panel").forEach((panel) => {
+            const actionLines = document.createElement("div");
+            actionLines.className = "action-lines";
+            panel.appendChild(actionLines);
+          });
+
+          // Create charts with staggered animation
+          setTimeout(() => {
+            createGroupedBarChart(
+              document
+                .getElementById("task1SatisfactionComplexity")
+                .getContext("2d"),
+              "Satisfaction Rate",
+              task1Satisfaction,
+              "Level of Complexity",
+              task1Complexity
+            );
+          }, 500);
+
+          setTimeout(() => {
+            createGroupedBarChart(
+              document
+                .getElementById("task2SatisfactionComplexity")
+                .getContext("2d"),
+              "Satisfaction Rate",
+              task2Satisfaction,
+              "Level of Complexity",
+              task2Complexity
+            );
+          }, 1000);
+
+          setTimeout(() => {
+            createGroupedBarChart(
+              document
+                .getElementById("task3SatisfactionComplexity")
+                .getContext("2d"),
+              "Satisfaction Rate",
+              task3Satisfaction,
+              "Level of Complexity",
+              task3Complexity
+            );
+          }, 1500);
+
+          setTimeout(() => {
+            createSingleBarChart(
+              document.getElementById("task1Time").getContext("2d"),
+              "Time in Seconds",
+              task1Time
+            );
+          }, 2000);
+
+          setTimeout(() => {
+            createSingleBarChart(
+              document.getElementById("task2Time").getContext("2d"),
+              "Time in Seconds",
+              task2Time
+            );
+          }, 2500);
+
+          setTimeout(() => {
+            createSingleBarChart(
+              document.getElementById("task3Time").getContext("2d"),
+              "Time in Seconds",
+              task3Time
+            );
+          }, 3000);
         });
       </script>
       <style>
